@@ -1,0 +1,178 @@
+openapi: 3.0.3
+info:
+  title: Brotherhood
+  description: Documentation of Brotherhood project
+  version: 1.0.11
+servers:
+  - url: https://brotherhood.com/api/v1
+tags:
+  - name: users
+    description: Everything about users entities
+  - name: brotherhood
+    description: Everthing about brotherhood entities
+paths:
+  /brotherhoods/{id}:
+    get:
+      tags:
+        - brotherhood
+      summary: Retrieve the information for build the lading page of the brotherhood
+      parameters:
+        - name: id
+          in: path
+          description: ID of brotherhood
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brotherhood'
+  /brotherhoods:
+    post:
+      tags:
+        - brotherhood
+      summary: Add a new brotherhood
+      operationId: createBrotherHood
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+      requestBody:
+        description: Add a new brotherhood
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBrotherhood'
+        required: true
+      responses:
+        '204':
+          description: Successful operation
+        '405':
+          description: Invalid input
+  /users:
+    post:
+      tags:
+        - users
+      summary: Add a new user
+      description: Add a new user to a brotherhood
+      operationId: createUser
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+      requestBody:
+        description:  Add a new user to a brotherhood
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+        required: true
+      responses:
+        '204':
+          description: Successful operation
+        '405':
+          description: Invalid input
+components:
+  schemas:
+    Brotherhood:
+      type: object
+      properties:
+        brotherhoodToken:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        phone:
+          type: string
+        logo:
+          type: string
+          format: base64
+        type:
+          type: string
+          enum: [JUST_MEN, JUST_WOMEN, NO_RESTRICTIONS]
+        banner:
+          type: string
+          format: base64
+        capacity:
+          type: integer
+        membersCount:
+          type: integer
+    Address:
+      type: object
+      properties:
+        country:
+          type: string
+        city:
+          type: string
+        street:
+          type: string
+        number:
+          type: number
+        zipCode:
+          type: string
+        state:
+          type: string
+    CreateBrotherhood:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        phone:
+          type: string
+        logo:
+          type: string
+          format: base64
+        type:
+          type: string
+          enum: [JUST_MEN, JUST_WOMEN, NO_RESTRICTIONS]
+        banner:
+          type: string
+          format: base64
+        capacity:
+          type: integer
+        address:
+          $ref: '#/components/schemas/Address'
+        admin:
+          $ref: '#/components/schemas/CreateUser'
+    CreateUser:
+      type: object
+      properties:
+        brotherhoodToken:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: theUser
+        birthDate:
+          type: string
+          format: date
+        phone:
+          type: string
+          example: '12345'
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

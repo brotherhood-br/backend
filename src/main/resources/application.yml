@@ -5,3 +5,21 @@ netty:
   default:
     allocator:
       max-order: 3
+google:
+  clientId: '43960775230-1o1aqgh85sn56nr1ai1kjktp62gf9ihc.apps.googleusercontent.com'
+  datasources:
+    default:
+      url: jdbc:mysql://aws.connect.psdb.cloud/brotherhood?sslMode=VERIFY_IDENTITY
+      username: 00j9hg1ygkpfqjg912ow
+      password: pscale_pw_5HRf31mFvNnaGa5pnniG0klXgAXSAp5cqPpHNxnJdTx
+      driverClassName: org.h2.Driver
+  jpa:
+    default:
+      entity-scan:
+        packages:
+          - 'com.brotherhood.domain.entity'
+      properties:
+        hibernate:
+          hbm2ddl:
+            auto: update
+          show_sql: true

@@ -67,7 +67,7 @@ paths:
         - name: sso_token
           in: header
           description: ''
-          required: false
+          required: true
           schema:
             type: string
       requestBody:
@@ -80,6 +80,8 @@ paths:
       responses:
         '204':
           description: Successful operation
+        '401':
+          description: Invalid token
         '405':
           description: Invalid input
 components:

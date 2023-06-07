@@ -9,7 +9,7 @@ tags:
   - name: users
     description: Everything about users entities
   - name: brotherhood
-    description: Everthing about brotherhood entities
+    description: Everything about brotherhood entities
 paths:
   /brotherhoods/{id}:
     get:
@@ -41,7 +41,7 @@ paths:
         - name: sso_token
           in: header
           description: ''
-          required: false
+          required: true
           schema:
             type: string
       requestBody:
@@ -165,16 +165,3 @@ components:
         phone:
           type: string
           example: '12345'
-  securitySchemes:
-    petstore_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
-          scopes:
-            write:pets: modify pets in your account
-            read:pets: read your pets
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header

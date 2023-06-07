@@ -33,7 +33,7 @@ public class GetUserInfoFromGoogleGateway implements GetUserInfoFromGoogleDataPr
                     .pictureUrl((String) payload.get(PICTURE_KEY))
                     .build();
         } catch (IOException | GeneralSecurityException ex) {
-            throw new InvalidUserTokenException(ex.getMessage(), ex);
+            throw new InvalidUserTokenException(ex.getMessage());
         }
     }
 }

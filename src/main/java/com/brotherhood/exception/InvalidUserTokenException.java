@@ -1,11 +1,10 @@
 package com.brotherhood.exception;
 
-public class InvalidUserTokenException extends RuntimeException {
-    public InvalidUserTokenException(String message, Throwable cause) {
-        super(message, cause);
-    }
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.exceptions.HttpStatusException;
 
+public class InvalidUserTokenException extends HttpStatusException {
     public InvalidUserTokenException(String message) {
-        super(message);
+        super(HttpStatus.FORBIDDEN, message);
     }
 }

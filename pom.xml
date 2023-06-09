@@ -111,6 +111,11 @@
       <artifactId>postgresql</artifactId>
       <version>42.6.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.openapitools</groupId>
+      <artifactId>jackson-databind-nullable</artifactId>
+      <version>0.2.6</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -131,6 +136,9 @@
               <goal>generate</goal>
             </goals>
             <configuration>
+              <configOptions>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
               <inputSpec>${project.basedir}/src/main/resources/swagger.yaml</inputSpec>
               <generatorName>micronaut</generatorName>
               <apiPackage>com.brotherhood.api</apiPackage>

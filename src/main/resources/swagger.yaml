@@ -11,11 +11,83 @@ tags:
   - name: brotherhood
     description: Everything about brotherhood entities
 paths:
+  /home:
+    get:
+      tags:
+        - home
+      summary: Retrieve all the information necessary to load the home page
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+      operationId: getHome
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomePage'
+  /brotherhoods/admin:
+    get:
+      tags:
+        - brotherhood
+      operationId: getBrotherhoodAdminPage
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrotherhoodAdminPage'
+
   /brotherhoods/{id}:
+    put:
+      tags:
+        - brotherhood
+      summary: Add a new brotherhood
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of brotherhood
+          required: true
+          schema:
+            type: string
+            format: uuid
+      operationId: updateBrotherHood
+      requestBody:
+        description: Add a new brotherhood
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBrotherhood'
+        required: true
+      responses:
+        '204':
+          description: Successful operation
+        '405':
+          description: Invalid input
     get:
       tags:
         - brotherhood
       summary: Retrieve the information for build the lading page of the brotherhood
+      operationId: getBrotherhoodById
       parameters:
         - name: id
           in: path
@@ -56,7 +128,81 @@ paths:
           description: Successful operation
         '405':
           description: Invalid input
+  /users/{id}:
+    patch:
+      tags:
+        - users
+      summary: Update a resident
+      operationId: updateUser
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the resident
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update a resident
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
+    delete:
+      tags:
+        - users
+      summary: Delete a resident
+      operationId: deleteUser
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description:  ID of the resident
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
   /users:
+    get:
+      tags:
+        - users
+      summary: Retrieve basic info about all users from a brotherhood
+      operationId: getUsers
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCard'
     post:
       tags:
         - users
@@ -84,8 +230,363 @@ paths:
           description: Invalid token
         '405':
           description: Invalid input
+  /tasks/{id}:
+    delete:
+      tags:
+        - tasks
+      summary: Delete a task
+      operationId: deleteTask
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the task
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
+    put:
+      tags:
+        - tasks
+      summary: Update a task
+      operationId: updateTask
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the task
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update an existing task
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTask'
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
+    patch:
+      tags:
+        - tasks
+      summary: Update a task
+      operationId: patchTask
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the task
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update an existing task
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTask'
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
+  /tasks:
+    get:
+      tags:
+        - tasks
+      summary: Retrieve all the necessary info for build the tasks page
+      operationId: getTaskPage
+      parameters:
+        - name: taskStatus
+          in: query
+          description: 'Optional filter for status'
+          required: false
+          schema:
+            type: string
+            enum: [LATE, AVAILABLE, DOING, FINISHED]
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskPage'
+    post:
+      tags:
+        - tasks
+      summary: Add a new task
+      description: Add a new task
+      operationId: createTask
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description:  Add a new task
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTask'
+        required: true
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
+        '405':
+          description: Invalid input
+  /budgets:
+    get:
+      tags:
+        - budgets
+      summary: Retrieve all the necessary information for load the budgets page
+      operationId: getBudgetsPage
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetsPage'
+  /budgets/goals:
+    post:
+      tags:
+        - budgets
+      summary: Add a new goal
+      description: Add a new goal
+      operationId: createGoal
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description:  Add a new goal
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGoal'
+        required: true
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
+        '405':
+          description: Invalid input
+  /budgets/goals/{id}:
+    get:
+      tags:
+        - budgets
+      summary: Retrieve detailed info about some goal
+      operationId: getGoalById
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the goal
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+    delete:
+      tags:
+        - budgets
+      summary: Delete a goal
+      operationId: deleteGoal
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the goal
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
+    put:
+      tags:
+        - budgets
+      summary: Update a goal
+      operationId: updateGoal
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the goal
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update an existing goal
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGoal'
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
+  /budgets/goals/{id}/contributions:
+    patch:
+      tags:
+        - budgets
+      summary: Add a contribution for a goal
+      operationId: contribute
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the goal
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Contribution value
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: number
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Invalid token
 components:
   schemas:
+    HomePage:
+      type: object
+      properties:
+        brotherhoodLogo:
+          type: string
+        brotherhoodBanner:
+          type: string
+        userId:
+          type: string
+          format: uuid
+        userName:
+          type: string
+        userType:
+          type: string
+          enum: [ADMIN, RESIDENT]
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskHome'
+    TaskHome:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        expireDate:
+          type: string
+          format: date-time
+    UserCard:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        image:
+          type: string
+    BrotherhoodAdminPage:
+      type: object
+      properties:
+        viewCount:
+          type: integer
+        brotherhoodPageUrl:
+          type: string
+        brotherhoodInviteUrl:
+          type: string
+        occupation:
+          type: integer
+        capacity:
+          type: integer
     Brotherhood:
       type: object
       properties:
@@ -111,6 +612,8 @@ components:
           type: integer
         membersCount:
           type: integer
+        address:
+          $ref: '#/components/schemas/Address'
     Address:
       type: object
       properties:
@@ -146,10 +649,118 @@ components:
           format: base64
         capacity:
           type: integer
+        characteristics:
+          type: array
+          items:
+            type: string
         address:
           $ref: '#/components/schemas/Address'
         admin:
           $ref: '#/components/schemas/CreateUser'
+    TaskPage:
+      type: object
+      properties:
+        counterCarousel:
+          $ref: '#/components/schemas/TaskCounterCard'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+    TaskCounterCard:
+      type: object
+      properties:
+        late:
+          type: integer
+        available:
+          type: integer
+        doing:
+          type: integer
+        finished:
+          type: integer
+    BudgetsPage:
+      type: object
+      properties:
+        totalValue:
+          type: number
+        goals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Goal'
+    Goal:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        currentValue:
+          type: number
+        targetValue:
+          type: number
+    CreateGoal:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        value:
+          type: number
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        responsibleName:
+          type: string
+        responsibleImg:
+          type: string
+        description:
+          type: string
+        expiresOn:
+          type: string
+          format: date-time
+        frequency:
+          format: date-time
+    UpdateTask:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [LATE, AVAILABLE, DOING, FINISHED]
+        attachedUserId:
+          type: string
+          format: uuid
+    CreateTask:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        expiresOn:
+          type: string
+          format: date-time
+        attachedUserId:
+          type: string
+          format: uuid
+        frequency:
+          type: string
+          enum: [WEAKLY, MONTHLY, NONE]
+    UpdateUser:
+      type: object
+      properties:
+        birthdate:
+          type: string
+          format: date
+        phone:
+          type: string
     CreateUser:
       type: object
       properties:

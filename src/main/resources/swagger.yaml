@@ -752,7 +752,7 @@ components:
           format: uuid
         frequency:
           type: string
-          enum: [WEAKLY, MONTHLY, NONE]
+          enum: [WEEKLY, MONTHLY, NONE]
     UpdateUser:
       type: object
       properties:

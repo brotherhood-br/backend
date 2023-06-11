@@ -3,9 +3,9 @@ package com.brotherhood.adapter.repository;
 import com.brotherhood.domain.dataprovider.CreateBrotherhoodDataProvider;
 import com.brotherhood.domain.dataprovider.GetBrotherhoodByInviteTokenDataProvider;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
+import org.hibernate.Session;
 
 import javax.inject.Singleton;
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
@@ -16,12 +16,12 @@ import java.util.UUID;
 public class BrotherhoodRepository implements CreateBrotherhoodDataProvider, GetBrotherhoodByInviteTokenDataProvider {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private Session entityManager;
 
     @Override
     @Transactional
     public BrotherhoodEntity save(BrotherhoodEntity brotherhood) {
-        entityManager.persist(brotherhood);
+        entityManager.saveOrUpdate(brotherhood);
         return brotherhood;
     }
 

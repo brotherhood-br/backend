@@ -2,6 +2,7 @@ package com.brotherhood.controller;
 
 import com.brotherhood.api.UsersApi;
 import com.brotherhood.domain.service.CreateUserService;
+import com.brotherhood.domain.service.DeleteUserService;
 import com.brotherhood.model.CreateUser;
 import com.brotherhood.model.UpdateUser;
 import com.brotherhood.model.UserCard;
@@ -15,6 +16,8 @@ import java.util.UUID;
 public class UsersController implements UsersApi {
     @Inject
     private CreateUserService createUserService;
+    @Inject
+    private DeleteUserService deleteUserService;
 
     @Override
     public HttpResponse<Object> createUser(String ssoToken, CreateUser createUser) {
@@ -24,7 +27,8 @@ public class UsersController implements UsersApi {
 
     @Override
     public HttpResponse<Object> deleteUser(String ssoToken, UUID id) {
-        return null;
+        deleteUserService.removeFromRep(ssoToken, id);
+        return HttpResponse.noContent();
     }
 
     @Override

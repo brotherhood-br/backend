@@ -5,5 +5,5 @@ import com.brotherhood.domain.entity.BrotherhoodEntity;
 import java.util.UUID;
 
 public interface GetBrotherhoodByInviteTokenDataProvider {
-    BrotherhoodEntity find(UUID token);
+    BrotherhoodEntity findByInviteToken(UUID token);
 }

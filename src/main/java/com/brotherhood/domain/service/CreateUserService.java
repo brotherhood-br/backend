@@ -1,6 +1,6 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.domain.dataprovider.CreateUserDataProvider;
+import com.brotherhood.domain.dataprovider.SaveUserDataProvider;
 import com.brotherhood.domain.dataprovider.GetBrotherhoodByInviteTokenDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
@@ -22,21 +22,21 @@ public class CreateUserService {
     private GetBrotherhoodByInviteTokenDataProvider getBrotherhoodByInviteTokenDataProvider;
 
     @Inject
-    private CreateUserDataProvider createUserDataProvider;
+    private SaveUserDataProvider saveUserDataProvider;
 
     public void createInvitedUser(String ssoToken, CreateUser createUser) {
         UserEntity user = getUserEntity(ssoToken, createUser);
-        BrotherhoodEntity brotherhood = getBrotherhoodByInviteTokenDataProvider.find(createUser.brotherhoodToken());
+        BrotherhoodEntity brotherhood = getBrotherhoodByInviteTokenDataProvider.findByInviteToken(createUser.brotherhoodToken());
         user.setBrotherhood(brotherhood);
         user.setType(UserTypeEntity.RESIDENT);
-        createUserDataProvider.save(user);
+        saveUserDataProvider.saveOrUpdate(user);
     }
 
     public void createAdminUser(String ssoToken, CreateUser createUser, BrotherhoodEntity brotherhood) {
         UserEntity user = getUserEntity(ssoToken, createUser);
         user.setBrotherhood(brotherhood);
         user.setType(UserTypeEntity.ADMIN);
-        createUserDataProvider.save(user);
+        saveUserDataProvider.saveOrUpdate(user);
     }
 
     private UserEntity getUserEntity(String ssoToken, CreateUser createUser) {

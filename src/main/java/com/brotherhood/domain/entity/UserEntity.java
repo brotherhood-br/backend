@@ -32,6 +32,7 @@ public class UserEntity implements Serializable {
 
     private String phone;
 
+    @Column(name = "email", unique = true)
     private String email;
 
     private UserTypeEntity type;

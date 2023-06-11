@@ -3,12 +3,14 @@ package com.brotherhood.adapter.repository;
 import com.brotherhood.domain.dataprovider.GetBrotherhoodByInviteTokenDataProvider;
 import com.brotherhood.domain.dataprovider.SaveBrotherhoodDataProvider;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
+import com.brotherhood.exception.BadRequestException;
 import org.hibernate.Session;
 
 import javax.inject.Singleton;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 import java.util.UUID;
 
 @Singleton
@@ -20,10 +22,15 @@ public class BrotherhoodRepository implements SaveBrotherhoodDataProvider, GetBr
     @Override
     @Transactional
     public BrotherhoodEntity save(BrotherhoodEntity brotherhood) {
-        entityManager.saveOrUpdate(brotherhood);
+        try {
+            entityManager.saveOrUpdate(brotherhood);
+        } catch (ConstraintViolationException ex) {
+            throw new BadRequestException("Already exists one user with this e-mail!");
+        }
         return brotherhood;
     }
     @Override
+    @Transactional
     public BrotherhoodEntity findByInviteToken(UUID token) {
         TypedQuery<BrotherhoodEntity> query = entityManager.createQuery("SELECT b FROM BrotherhoodEntity b WHERE b.inviteToken = :token", BrotherhoodEntity.class);
         query.setParameter("token", token);

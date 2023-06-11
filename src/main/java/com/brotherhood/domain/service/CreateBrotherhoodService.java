@@ -1,6 +1,6 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.domain.dataprovider.CreateBrotherhoodDataProvider;
+import com.brotherhood.domain.dataprovider.SaveBrotherhoodDataProvider;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
 import com.brotherhood.model.CreateBrotherhood;
 
@@ -11,7 +11,7 @@ import java.util.UUID;
 @Singleton
 public class CreateBrotherhoodService {
     @Inject
-    private CreateBrotherhoodDataProvider createBrotherhoodDataProvider;
+    private SaveBrotherhoodDataProvider createBrotherhoodDataProvider;
 
     @Inject
     private CreateUserService createUserService;

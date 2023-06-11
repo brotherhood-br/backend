@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Singleton
-@Transactional
 public class UserRepository implements SaveUserDataProvider, GetUserDataProvider {
     @PersistenceContext
     private Session entityManager;

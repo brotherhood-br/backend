@@ -1,11 +1,13 @@
 package com.brotherhood.domain.entity;
 
+import com.google.errorprone.annotations.concurrent.LazyInit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -15,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Builder
-public class UserEntity {
+public class UserEntity implements Serializable {
     @Id
     private UUID id;
 
@@ -36,5 +38,6 @@ public class UserEntity {
 
     @ManyToOne
     @JoinColumn(name="fk_brotherhood", referencedColumnName = "id")
+    @LazyInit
     private BrotherhoodEntity brotherhood;
 }

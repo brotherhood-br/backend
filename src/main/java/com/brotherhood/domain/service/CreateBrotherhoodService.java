@@ -25,6 +25,7 @@ public class CreateBrotherhoodService {
                 .inviteToken(UUID.randomUUID())
                 .maxOccupation(createBrotherhood.capacity())
                 .description(createBrotherhood.description())
+                .characteristics(createBrotherhood.getCharacteristics())
                 .banner(createBrotherhood.banner())
                 .build();
         createBrotherhoodDataProvider.save(brotherhood);

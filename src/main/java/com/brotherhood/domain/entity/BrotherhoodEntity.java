@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BrotherhoodEntity {
+public class BrotherhoodEntity implements Serializable {
     @Id
     private UUID id;
 
@@ -32,5 +34,10 @@ public class BrotherhoodEntity {
     private String description;
 
     private String phone;
+
+    @ElementCollection
+    @CollectionTable(name="brotherhood_characteristics", joinColumns=@JoinColumn(name="fk_brotherhood"))
+    @Column(name="characteristic")
+    private List<String> characteristics;
 
 }

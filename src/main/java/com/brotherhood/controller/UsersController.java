@@ -3,11 +3,13 @@ package com.brotherhood.controller;
 import com.brotherhood.api.UsersApi;
 import com.brotherhood.domain.service.CreateUserService;
 import com.brotherhood.domain.service.DeleteUserService;
+import com.brotherhood.domain.service.UpdateUserService;
 import com.brotherhood.model.CreateUser;
 import com.brotherhood.model.UpdateUser;
 import com.brotherhood.model.UserCard;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
+import org.hibernate.sql.Update;
 
 import javax.inject.Inject;
 import java.util.UUID;
@@ -18,6 +20,8 @@ public class UsersController implements UsersApi {
     private CreateUserService createUserService;
     @Inject
     private DeleteUserService deleteUserService;
+    @Inject
+    private UpdateUserService updateUserService;
 
     @Override
     public HttpResponse<Object> createUser(String ssoToken, CreateUser createUser) {
@@ -38,6 +42,7 @@ public class UsersController implements UsersApi {
 
     @Override
     public HttpResponse<Object> updateUser(String ssoToken, UUID id, UpdateUser updateUser) {
-        return null;
+        updateUserService.patchUser(ssoToken, id, updateUser);
+        return HttpResponse.noContent();
     }
 }

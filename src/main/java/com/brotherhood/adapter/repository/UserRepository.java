@@ -38,5 +38,11 @@ public class UserRepository implements SaveUserDataProvider, GetUserDataProvider
         TypedQuery<UserSimpleCard> query = entityManager.createQuery("SELECT new com.brotherhood.domain.model.UserSimpleCard(u.id, u.name, u.picture) FROM UserEntity u", UserSimpleCard.class);
         return query.getResultList();
     }
-
+    @Override
+    @Transactional
+    public UserEntity findByToken(String token) {
+        TypedQuery<UserEntity> query = entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.googleId = :token", UserEntity.class);
+        query.setParameter("token", token);
+        return query.getSingleResult();
+    }
 }

@@ -21,6 +21,7 @@ public class CreateTaskService {
 
     @Inject
     private SaveTaskDataProvider saveTaskDataProvider;
+
     @Inject
     private GetUserDataProvider getUserDataProvider;
 
@@ -30,8 +31,19 @@ public class CreateTaskService {
     }
 
     private TaskEntity getTaskEntity(String ssoToken, CreateTask createTask) {
-        ssoUserDataProvider.getUserInfo(ssoToken);
-        UserEntity user = getUserDataProvider.findById(createTask.attachedUserId());
+        UserEntity user = getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
+        if (createTask.attachedUserId() != null) {
+            return TaskEntity.builder()
+                    .id(UUID.randomUUID())
+                    .title(createTask.title())
+                    .description(createTask.description())
+                    .expiresOn(createTask.expiresOn())
+                    .frequency(createTask.frequency())
+                    .status(UpdateTask.Status.AVAILABLE)
+                    .user(getUserDataProvider.findById(createTask.getAttachedUserId()))
+                    .brotherhood(user.getBrotherhood())
+                    .build();
+        }
         return TaskEntity.builder()
                 .id(UUID.randomUUID())
                 .title(createTask.title())
@@ -39,9 +51,7 @@ public class CreateTaskService {
                 .expiresOn(createTask.expiresOn())
                 .frequency(createTask.frequency())
                 .status(UpdateTask.Status.AVAILABLE)
-                .user(user)
                 .brotherhood(user.getBrotherhood())
                 .build();
     }
-
 }

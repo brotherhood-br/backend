@@ -4,12 +4,14 @@ package com.brotherhood.adapter.repository;
 import com.brotherhood.domain.dataprovider.GetUserDataProvider;
 import com.brotherhood.domain.dataprovider.SaveUserDataProvider;
 import com.brotherhood.domain.entity.UserEntity;
+import com.brotherhood.domain.model.UserSimpleCard;
 import org.hibernate.Session;
 
 import javax.inject.Singleton;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 
 @Singleton
@@ -24,10 +26,17 @@ public class UserRepository implements SaveUserDataProvider, GetUserDataProvider
         return user;
     }
     @Override
+    @Transactional
     public UserEntity findById(UUID id) {
         TypedQuery<UserEntity> query = entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.id = :id", UserEntity.class);
         query.setParameter("id", id);
         return query.getSingleResult();
+    }
+    @Override
+    @Transactional
+    public List<UserSimpleCard> findAllSimpleCards() {
+        TypedQuery<UserSimpleCard> query = entityManager.createQuery("SELECT new com.brotherhood.domain.model.UserSimpleCard(u.id, u.name, u.picture) FROM UserEntity u", UserSimpleCard.class);
+        return query.getResultList();
     }
 
 }

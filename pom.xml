@@ -145,6 +145,8 @@
             <configuration>
               <configOptions>
                 <interfaceOnly>true</interfaceOnly>
+                <dateLibrary>custom</dateLibrary>
+                <java8>true</java8>
               </configOptions>
               <inputSpec>${project.basedir}/src/main/resources/swagger.yaml</inputSpec>
               <generatorName>micronaut</generatorName>
@@ -152,6 +154,10 @@
               <invokerPackage>com.brotherhood.invoker</invokerPackage>
               <modelPackage>com.brotherhood.model</modelPackage>
               <output>${project.build.directory}</output>
+              <typeMappings>
+                <typeMapping>DateTime=java.time.LocalDateTime</typeMapping>
+                <typeMapping>Date=java.time.LocalDate</typeMapping>
+              </typeMappings>
             </configuration>
           </execution>
         </executions>

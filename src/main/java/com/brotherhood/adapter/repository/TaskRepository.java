@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
-public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvider {
+public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvider, GetTaskDataProvider{
     @PersistenceContext
     private Session entityManager;
 
@@ -33,6 +33,13 @@ public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvi
     @Transactional
     public void deleteById(UUID id) {
         entityManager.delete(TaskEntity.builder().id(id).build());
+    }
+    @Override
+    @Transactional
+    public TaskEntity findById(UUID id) {
+        TypedQuery<TaskEntity> query = entityManager.createQuery("SELECT t FROM TaskEntity u WHERE u.id = :id", TaskEntity.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 
 

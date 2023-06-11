@@ -9,11 +9,11 @@ google:
   clientId: '43960775230-1o1aqgh85sn56nr1ai1kjktp62gf9ihc.apps.googleusercontent.com'
 datasources:
   default:
-    url: jdbc:postgresql://silly.db.elephantsql.com:5432/deldgbzs
-    username: deldgbzs
-    password: 4DsqqYzfbtjoIx5M9_GTK6l_AH-9a-JL
+    url: jdbc:postgresql://34.68.187.182:5432/brotherhood
+    username: brotherhood
+    password: 9c=s]kSC1?5Y4M'j
     driverClassName: org.postgresql.Driver
-    schema: brotherhood
+    schema: public
 jpa:
   default:
     entity-scan:

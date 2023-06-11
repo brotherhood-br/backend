@@ -8,17 +8,21 @@ import com.brotherhood.domain.entity.UserEntity;
 import com.brotherhood.domain.entity.UserTypeEntity;
 import com.brotherhood.domain.model.UserSSO;
 import com.brotherhood.model.CreateUser;
-import lombok.RequiredArgsConstructor;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.UUID;
 
 @Singleton
-@RequiredArgsConstructor
 public class CreateUserService {
-    private final GetUserInfoFromGoogleDataProvider ssoUserDataProvider;
-    private final GetBrotherhoodByInviteTokenDataProvider getBrotherhoodByInviteTokenDataProvider;
-    private final CreateUserDataProvider createUserDataProvider;
+    @Inject
+    private GetUserInfoFromGoogleDataProvider ssoUserDataProvider;
+
+    @Inject
+    private GetBrotherhoodByInviteTokenDataProvider getBrotherhoodByInviteTokenDataProvider;
+
+    @Inject
+    private CreateUserDataProvider createUserDataProvider;
 
     public void createInvitedUser(String ssoToken, CreateUser createUser) {
         UserEntity user = getUserEntity(ssoToken, createUser);

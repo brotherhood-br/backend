@@ -3,16 +3,17 @@ package com.brotherhood.adapter.repository;
 
 import com.brotherhood.domain.dataprovider.CreateUserDataProvider;
 import com.brotherhood.domain.entity.UserEntity;
-import lombok.RequiredArgsConstructor;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Singleton
-@RequiredArgsConstructor
+@Transactional
 public class UserRepository implements CreateUserDataProvider {
-    private final EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     @Transactional

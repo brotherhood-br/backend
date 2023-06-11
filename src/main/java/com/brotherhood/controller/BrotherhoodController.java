@@ -7,14 +7,14 @@ import com.brotherhood.model.BrotherhoodAdminPage;
 import com.brotherhood.model.CreateBrotherhood;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
-import lombok.RequiredArgsConstructor;
 
+import javax.inject.Inject;
 import java.util.UUID;
 
 @Controller
-@RequiredArgsConstructor
 public class BrotherhoodController implements BrotherhoodApi {
-    private final CreateBrotherhoodService createBrotherhoodService;
+    @Inject
+    private CreateBrotherhoodService createBrotherhoodService;
     @Override
     public HttpResponse<Object> createBrotherHood(String ssoToken, CreateBrotherhood createBrotherhood) {
         createBrotherhoodService.create(ssoToken, createBrotherhood);

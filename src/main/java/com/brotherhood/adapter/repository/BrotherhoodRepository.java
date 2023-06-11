@@ -3,18 +3,20 @@ package com.brotherhood.adapter.repository;
 import com.brotherhood.domain.dataprovider.CreateBrotherhoodDataProvider;
 import com.brotherhood.domain.dataprovider.GetBrotherhoodByInviteTokenDataProvider;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
-import lombok.RequiredArgsConstructor;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Singleton
-@RequiredArgsConstructor
+@Transactional
 public class BrotherhoodRepository implements CreateBrotherhoodDataProvider, GetBrotherhoodByInviteTokenDataProvider {
-    private final EntityManager entityManager;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     @Transactional

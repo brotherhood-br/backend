@@ -7,14 +7,14 @@ import com.brotherhood.model.UpdateUser;
 import com.brotherhood.model.UserCard;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
-import lombok.RequiredArgsConstructor;
 
+import javax.inject.Inject;
 import java.util.UUID;
 
 @Controller
-@RequiredArgsConstructor
 public class UsersController implements UsersApi {
-    private final CreateUserService createUserService;
+    @Inject
+    private CreateUserService createUserService;
 
     @Override
     public HttpResponse<Object> createUser(String ssoToken, CreateUser createUser) {

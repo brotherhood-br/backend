@@ -6,6 +6,7 @@ import com.brotherhood.exception.InvalidUserTokenException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -13,7 +14,9 @@ import java.security.GeneralSecurityException;
 @Singleton
 public class GetUserInfoFromGoogleGateway implements GetUserInfoFromGoogleDataProvider {
     public static final String PICTURE_KEY = "picture";
-    private final GoogleIdTokenVerifier ssoVerify;
+
+    @Inject
+    private GoogleIdTokenVerifier ssoVerify;
 
     public GetUserInfoFromGoogleGateway(GoogleIdTokenVerifier ssoVerify) {
         this.ssoVerify = ssoVerify;

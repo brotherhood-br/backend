@@ -37,7 +37,7 @@ public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvi
     @Override
     @Transactional
     public TaskEntity findById(UUID id) {
-        TypedQuery<TaskEntity> query = entityManager.createQuery("SELECT t FROM TaskEntity u WHERE u.id = :id", TaskEntity.class);
+        TypedQuery<TaskEntity> query = entityManager.createQuery("SELECT t FROM TaskEntity t WHERE t.id = :id", TaskEntity.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }

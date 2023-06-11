@@ -4,6 +4,7 @@ import com.brotherhood.api.TasksApi;
 import com.brotherhood.domain.service.CreateTaskService;
 import com.brotherhood.domain.service.CreateUserService;
 import com.brotherhood.domain.service.DeleteTaskService;
+import com.brotherhood.domain.service.UpdateTaskService;
 import com.brotherhood.model.CreateTask;
 import com.brotherhood.model.TaskPage;
 import com.brotherhood.model.UpdateTask;
@@ -23,6 +24,9 @@ public class TaskController implements TasksApi {
 
     @Inject
     private DeleteTaskService deleteTaskService;
+
+    @Inject
+    private UpdateTaskService updateTaskService;
 
     @Override
     public HttpResponse<Object> createTask(String ssoToken, CreateTask createTask) {
@@ -48,6 +52,7 @@ public class TaskController implements TasksApi {
 
     @Override
     public HttpResponse<Object> updateTask(String ssoToken, UUID id, CreateTask createTask) {
-        return null;
+        updateTaskService.updateTask(ssoToken, id, createTask);
+        return HttpResponse.noContent();
     }
 }

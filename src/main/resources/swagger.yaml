@@ -202,7 +202,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserCard'
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserCard'
     post:
       tags:
         - users

@@ -35,6 +35,6 @@ public class UserEntity {
     private UserTypeEntity type;
 
     @ManyToOne
-    @JoinColumn(name="fk_brotherhood", referencedColumnName = "id", nullable = false, unique = true)
+    @JoinColumn(name="fk_brotherhood", referencedColumnName = "id", unique = true)
     private BrotherhoodEntity brotherhood;
 }

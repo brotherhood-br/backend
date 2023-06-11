@@ -330,7 +330,7 @@ paths:
           required: false
           schema:
             type: string
-            enum: [LATE, AVAILABLE, DOING, FINISHED]
+            enum: [LATE, AVAILABLE, FINISHED]
         - name: sso_token
           in: header
           description: ''
@@ -675,8 +675,6 @@ components:
           type: integer
         available:
           type: integer
-        doing:
-          type: integer
         finished:
           type: integer
     BudgetsPage:
@@ -735,7 +733,7 @@ components:
       properties:
         status:
           type: string
-          enum: [LATE, AVAILABLE, DOING, FINISHED]
+          enum: [LATE, AVAILABLE, FINISHED]
         attachedUserId:
           type: string
           format: uuid

@@ -39,7 +39,6 @@ public class CreateTaskService {
                     .description(createTask.description())
                     .expiresOn(createTask.expiresOn())
                     .frequency(createTask.frequency())
-                    .status(UpdateTask.Status.AVAILABLE)
                     .user(getUserDataProvider.findById(createTask.getAttachedUserId()))
                     .brotherhood(user.getBrotherhood())
                     .build();
@@ -50,7 +49,6 @@ public class CreateTaskService {
                 .description(createTask.description())
                 .expiresOn(createTask.expiresOn())
                 .frequency(createTask.frequency())
-                .status(UpdateTask.Status.AVAILABLE)
                 .brotherhood(user.getBrotherhood())
                 .build();
     }

@@ -10,6 +10,7 @@ import com.brotherhood.model.UpdateUser;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.persistence.NoResultException;
 import java.util.UUID;
 
 @Singleton
@@ -26,14 +27,19 @@ public class UpdateTaskService {
 
     @Inject
     private GetUserDataProvider getUserDataProvider;
-    public void updateTask(String ssoToken,UUID id, CreateTask createTask) {
+
+    public void updateTask(String ssoToken, UUID id, CreateTask createTask) {
         ssoUserDataProvider.getUserInfo(ssoToken);
         TaskEntity task = getTaskDataProvider.findById(id);
         task.setTitle(createTask.title());
         task.setDescription(createTask.description());
         task.setExpiresOn(createTask.getExpiresOn());
-        task.setUser(getUserDataProvider.findById(createTask.getAttachedUserId()));
         task.setFrequency(createTask.getFrequency());
+        try {
+            task.setUser(getUserDataProvider.findById(createTask.getAttachedUserId()));
+        } catch (NoResultException e) {
+            System.out.println(e.getMessage());
+        }
         saveTaskDataProvider.saveOrUpdate(task);
     }
 }

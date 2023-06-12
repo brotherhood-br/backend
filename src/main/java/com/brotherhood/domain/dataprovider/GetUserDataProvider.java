@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface GetUserDataProvider {
     UserEntity findById(UUID id);
+    UserEntity findByToken(String token);
 
     List<UserSimpleCard> findAllSimpleCards();
 

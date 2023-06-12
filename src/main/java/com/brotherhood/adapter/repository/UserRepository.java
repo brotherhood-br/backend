@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Singleton
@@ -38,5 +39,11 @@ public class UserRepository implements SaveUserDataProvider, GetUserDataProvider
         TypedQuery<UserSimpleCard> query = entityManager.createQuery("SELECT new com.brotherhood.domain.model.UserSimpleCard(u.id, u.name, u.picture) FROM UserEntity u", UserSimpleCard.class);
         return query.getResultList();
     }
-
+    @Override
+    @Transactional
+    public UserEntity findByToken(String token) {
+        TypedQuery<UserEntity> query = entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.googleId = :token", UserEntity.class);
+        query.setParameter("token", token);
+        return query.getSingleResult();
+    }
 }

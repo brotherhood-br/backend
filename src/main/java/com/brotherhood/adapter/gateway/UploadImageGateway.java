@@ -20,7 +20,7 @@ import java.util.UUID;
 @Singleton
 public class UploadImageGateway implements UploadImageDataProvider {
 
-    public static final String BUCKET_AUTH = "src/main/resources/brotherhood-385823-6226dc88168b.json";
+    public static final String BUCKET_AUTH = "brotherhood-385823-6226dc88168b.json";
     public static final String VIEW_ROLE = "roles/storage.objectViewer";
     public static final String INLINE = "inline";
     public static final String STORAGE_BASE_URL = "https://storage.googleapis.com";

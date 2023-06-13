@@ -1,5 +1,6 @@
 package com.brotherhood.adapter.repository;
 
+import com.brotherhood.domain.dataprovider.GetBrotherhoodById;
 import com.brotherhood.domain.dataprovider.GetBrotherhoodByInviteTokenDataProvider;
 import com.brotherhood.domain.dataprovider.SaveBrotherhoodDataProvider;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
@@ -14,7 +15,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.UUID;
 
 @Singleton
-public class BrotherhoodRepository implements SaveBrotherhoodDataProvider, GetBrotherhoodByInviteTokenDataProvider {
+public class BrotherhoodRepository implements SaveBrotherhoodDataProvider, GetBrotherhoodByInviteTokenDataProvider, GetBrotherhoodById {
 
     @PersistenceContext
     private Session entityManager;
@@ -29,6 +30,15 @@ public class BrotherhoodRepository implements SaveBrotherhoodDataProvider, GetBr
         }
         return brotherhood;
     }
+
+    @Override
+    @Transactional
+    public BrotherhoodEntity findById(UUID id) {
+        TypedQuery<BrotherhoodEntity> query = entityManager.createQuery("SELECT b FROM BrotherhoodEntity b WHERE b.id = :id", BrotherhoodEntity.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
+
     @Override
     @Transactional
     public BrotherhoodEntity findByInviteToken(UUID token) {

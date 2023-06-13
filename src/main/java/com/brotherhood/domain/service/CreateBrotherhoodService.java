@@ -3,7 +3,7 @@ package com.brotherhood.domain.service;
 import com.brotherhood.domain.dataprovider.SaveBrotherhoodDataProvider;
 import com.brotherhood.domain.dataprovider.UploadImageDataProvider;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
-import com.brotherhood.model.CreateBrotherhood;
+import com.brotherhood.model.CreateBrotherhoodWithAdmin;
 import io.micronaut.core.util.StringUtils;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ public class CreateBrotherhoodService {
     @Inject
     private CreateUserService createUserService;
 
-    public void create(String ssoToken, CreateBrotherhood createBrotherhood) {
+    public void create(String ssoToken, CreateBrotherhoodWithAdmin createBrotherhood) {
         BrotherhoodEntity brotherhood = BrotherhoodEntity.builder()
                 .id(UUID.randomUUID())
                 .name(createBrotherhood.name())
@@ -39,13 +39,13 @@ public class CreateBrotherhoodService {
         createUserService.createAdminUser(ssoToken, createBrotherhood.admin(), brotherhood);
     }
 
-    private void setBanner(CreateBrotherhood createBrotherhood, BrotherhoodEntity brotherhood) {
+    private void setBanner(CreateBrotherhoodWithAdmin createBrotherhood, BrotherhoodEntity brotherhood) {
         if (StringUtils.isNotEmpty(createBrotherhood.banner())) {
             brotherhood.setBanner(uploadImageDataProvider.uploadImage(createBrotherhood.getBanner()));
         }
     }
 
-    private void setLogo(CreateBrotherhood createBrotherhood, BrotherhoodEntity brotherhood) {
+    private void setLogo(CreateBrotherhoodWithAdmin createBrotherhood, BrotherhoodEntity brotherhood) {
         if (StringUtils.isNotEmpty(createBrotherhood.logo())) {
             brotherhood.setLogo(uploadImageDataProvider.uploadImage(createBrotherhood.logo()));
         }

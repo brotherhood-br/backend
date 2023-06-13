@@ -121,7 +121,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateBrotherhood'
+              $ref: '#/components/schemas/CreateBrotherhoodWithAdmin'
         required: true
       responses:
         '204':
@@ -631,6 +631,13 @@ components:
           type: string
         state:
           type: string
+    CreateBrotherhoodWithAdmin:
+      allOf:
+        - $ref: '#/components/schemas/CreateBrotherhood'
+        - type: object
+          properties:
+            admin:
+              $ref: '#/components/schemas/CreateUser'
     CreateBrotherhood:
       type: object
       properties:
@@ -657,8 +664,6 @@ components:
             type: string
         address:
           $ref: '#/components/schemas/Address'
-        admin:
-          $ref: '#/components/schemas/CreateUser'
     TaskPage:
       type: object
       properties:

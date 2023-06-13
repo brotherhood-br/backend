@@ -2,9 +2,11 @@ package com.brotherhood.controller;
 
 import com.brotherhood.api.BrotherhoodApi;
 import com.brotherhood.domain.service.CreateBrotherhoodService;
+import com.brotherhood.domain.service.UpdateBrotherhoodService;
 import com.brotherhood.model.Brotherhood;
 import com.brotherhood.model.BrotherhoodAdminPage;
 import com.brotherhood.model.CreateBrotherhood;
+import com.brotherhood.model.CreateBrotherhoodWithAdmin;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import lombok.SneakyThrows;
@@ -18,9 +20,12 @@ public class BrotherhoodController implements BrotherhoodApi {
     @Inject
     private CreateBrotherhoodService createBrotherhoodService;
 
+    @Inject
+    private UpdateBrotherhoodService updateBrotherhoodService;
+
     @SneakyThrows
     @Override
-    public HttpResponse<Object> createBrotherHood(String ssoToken, CreateBrotherhood createBrotherhood) {
+    public HttpResponse<Object> createBrotherHood(String ssoToken, CreateBrotherhoodWithAdmin createBrotherhood) {
          createBrotherhoodService.create(ssoToken, createBrotherhood);
         return HttpResponse.noContent();
     }
@@ -37,6 +42,7 @@ public class BrotherhoodController implements BrotherhoodApi {
 
     @Override
     public HttpResponse<Object> updateBrotherHood(String ssoToken, UUID id, CreateBrotherhood createBrotherhood) {
-        return null;
+        updateBrotherhoodService.create(ssoToken, id, createBrotherhood);
+        return HttpResponse.noContent();
     }
 }

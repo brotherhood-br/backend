@@ -9,6 +9,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import io.micronaut.context.annotation.Value;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.inject.Singleton;
@@ -20,7 +21,8 @@ import java.util.UUID;
 @Singleton
 public class UploadImageGateway implements UploadImageDataProvider {
 
-    public static final String BUCKET_AUTH = "./brotherhood-385823-6226dc88168b.json";
+    @Value("${GOOGLE_AUTH_FILE:src/main/resources/brotherhood-385823-6226dc88168b.json}")
+    public String BUCKET_AUTH;
     public static final String VIEW_ROLE = "roles/storage.objectViewer";
     public static final String INLINE = "inline";
     public static final String STORAGE_BASE_URL = "https://storage.googleapis.com";

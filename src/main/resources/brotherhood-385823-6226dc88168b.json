@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "brotherhood-385823",
+  "private_key_id": "6226dc88168b3e30ed951a8c7e6313f9018661d6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCs7K/6QDQ3LprU\nW6mIBD55XykEoTf3dNSNZ+DQ3NKhrz2BXU7JVD4Si1lrC8snyXu9ZIS+7Ujwcqa3\nyozIwb6XJSwiU+x/rR3b0fK+EY0kw4wdedlBE7XQzx0M0RunKCAAp4RPnhZk7akm\nuGBgDU/iyZDSpLBTz1uvRsBRCVEJv/eHYnN0IWyBXK0HZCcA9JRfRwnMRkhJ/xBc\nNmifj9iU7zOTg9GfA7yu1cvocPtZ3Biw34AT4ZvFi/s3JefMOHOd2vXtHHlREkZO\n9ax7+bma/f2IOVvbrJP+DxswRB+3EsbuNXl5MK+Ium7FOZgfzoLSWlbgRGt6GyY0\naDHmrhXrAgMBAAECggEAEqaaml6nYxZDO8lBITr39AZH+chbrXRr4m6ESHKwwyCP\n/S5vq3ZLFZvzAoEsobdxAa3gRWl5Vvm+so8FnTeMU2f+eRtdJC4rTMS5rjddZkwz\nBhDY1lSGZSWZiALbvS0uOnPW6PFvj+Y0OsljF6kH5zl/RcDehcOVK3PxlSvwkiD1\nZpM0TBlyJxhnPXVDqaLQ7fpDza24fHGKxv7lododB/WD6nNKpB0kA+tQCfPW2rny\ng+Eud62MOXcVEwTCxPaSGQVR45hIw6UhuxAy3tTsNEMWzNRZPPXSpeju5hh3YnGH\nQC7/l83IajOPwFPmTijewyV5GXQg6n1SbIxU3vQgsQKBgQDcCWs6JwII+aE5e2YQ\ne/UlG1fC87cfPoj2gz/gDfE0ePeW/A22d+IqjJhElKsOG+UFcsfNrZq1vMElWnrU\nUwhfj+H6yq9SnbteWW1KHNAqRWTY8zWiJa9y65r8noAVQbIY8lbnJTSEXhIj9/mO\nxn+pO6Z+7hxHApUpLjXaJJjymwKBgQDJMAp+9CWN/kAaJnCaEDd/BvlxjD/EQ9UE\njO/rUtjBZ/wt988pEEk97VC+RucEmYLGCLzewJoFKZNivhbGad+xRPP33CQWpA9F\n+K+p/WJGQoTzHNKvZV4UBokGCATsoxYxOgbjpHa4Fm5Yv9OGh+UUuwBlvPtiCBMz\noEXP+F828QKBgEgPkZ1W3xS/ZCymHBPz9KH1ZXWESYmi+kn5S/b9uevcXgGFhJwo\ngNo8dzWmlqqlOgjhwUu7ujogmgS4sBdPJiPdxD1VGbvtykoo8WDfNNFTLqbaZ8s1\nmlMBlB19bycG/+OpogpLJfrfsAM1l/ZJTc/HqExTgNFEqEL3Tk2lxK1XAoGBAIOV\nDxhPOAyxYF16DKVGu/Uxq42PK9mCf9zVDMl9StTb3Lx32h7CTxTYlLmOB+QjPruk\n1Vpe351GvuWS67RjZHE9Zs8SROwl6vNZnhJw7YiEUw3qKQWcJ7azO4UdU5MtawNR\nL1ZNp3Po/8y90Wuoj7RKRg1EV6mbHGvkhCRsDmIRAoGAF8PS2LuDFWDuELGRCVoR\nxOwNihK9U5yyW6N87VuiZUcbe9kEOqQq37apZuOYFQarWsKLTlWmUwQG3kC4NnuZ\nAeBMXe38A5/Xaup9JPNg5k2bAmf6W3Hw2Q1z5h4ywqJT9byDFW5Oaa6XrRWWAGlO\n/V/VsipvucyuXRg6YObZrCY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "gcs-brotherhood@brotherhood-385823.iam.gserviceaccount.com",
+  "client_id": "110089028231889841515",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gcs-brotherhood%40brotherhood-385823.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

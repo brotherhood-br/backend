@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,17 +32,18 @@ public class TaskEntity implements Serializable {
 
     private LocalDateTime expiresOn;
 
-    private UpdateTask.Status  status;
+    @Column(columnDefinition = "int default 0")
+    private UpdateTask.Status status;
 
     private CreateTask.Frequency frequency;
 
     @ManyToOne
-    @JoinColumn(name="fk_brotherhood", referencedColumnName = "id")
+    @JoinColumn(name = "fk_brotherhood", referencedColumnName = "id")
     @LazyInit
     private BrotherhoodEntity brotherhood;
 
     @ManyToOne
-    @JoinColumn(name="fk_user", referencedColumnName = "id")
+    @JoinColumn(name = "fk_user", referencedColumnName = "id")
     @LazyInit
     private UserEntity user;
 }

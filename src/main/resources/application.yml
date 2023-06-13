@@ -1,4 +1,13 @@
 micronaut:
+  server:
+    cors:
+      enabled: true
+      configurations:
+        ui:
+          allowed-origins:
+            - http://localhost:3000
+            - https://localhost:3000
+            - https://brotherhood-br.vercel.com
   application:
     name: brotherhood
 netty:

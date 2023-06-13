@@ -53,6 +53,7 @@ public class UploadImageGateway implements UploadImageDataProvider {
             uploadObjectFromMemory(BUCKET_NAME, getExtension(strings[0]), fileName, Base64.decodeBase64(strings[1]));
             return String.format("%s/%s/%s", STORAGE_BASE_URL, BUCKET_NAME, fileName);
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new RuntimeException("Ocorreu um erro ao tentar realizar o upload da imagem");
         }
     }

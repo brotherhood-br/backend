@@ -1,5 +1,6 @@
 package com.brotherhood.domain.entity;
 
+import com.brotherhood.model.BrotherhoodTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +26,8 @@ public class BrotherhoodEntity implements Serializable {
 
     private UUID inviteToken;
 
+    private BrotherhoodTypeEnum type;
+
     private String logo;
 
     private String banner;
@@ -43,5 +46,9 @@ public class BrotherhoodEntity implements Serializable {
     @OneToMany
     @JoinColumn(name="fk_brotherhood", referencedColumnName = "id")
     private List<BrotherhoodViewsEntity> views;
+
+    @OneToOne
+    @JoinColumn(name = "fk_address", referencedColumnName = "id")
+    private AddressBrotherhoodEntity address;
 
 }

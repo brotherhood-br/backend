@@ -2,6 +2,7 @@ package com.brotherhood.domain.service;
 
 import com.brotherhood.domain.dataprovider.GetUserDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
+import com.brotherhood.domain.entity.UserEntity;
 import com.brotherhood.domain.model.UserSimpleCard;
 import com.brotherhood.model.UserCard;
 
@@ -20,8 +21,8 @@ public class GetUserService {
     private GetUserDataProvider getUserDataProvider;
 
     public List<UserCard> getAllSimpleCard(String ssoToken) {
-        ssoUserDataProvider.getUserInfo(ssoToken);
-        return getUserDataProvider.findAllSimpleCards()
+        UserEntity user = getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
+        return getUserDataProvider.findAllSimpleCards(user.getBrotherhood().getId())
                 .stream()
                 .map(GetUserService::getUserCard)
                 .collect(Collectors.toList());

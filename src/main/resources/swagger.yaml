@@ -607,8 +607,7 @@ components:
           type: string
           format: base64
         type:
-          type: string
-          enum: [JUST_MEN, JUST_WOMEN, NO_RESTRICTIONS]
+          $ref: "#/components/schemas/BrotherhoodTypeEnum"
         banner:
           type: string
           format: base64
@@ -618,6 +617,9 @@ components:
           type: integer
         address:
           $ref: '#/components/schemas/Address'
+    BrotherhoodTypeEnum:
+      type: string
+      enum: [JUST_MEN, JUST_WOMEN, NO_RESTRICTIONS]
     Address:
       type: object
       properties:
@@ -653,8 +655,7 @@ components:
           type: string
           format: base64
         type:
-          type: string
-          enum: [JUST_MEN, JUST_WOMEN, NO_RESTRICTIONS]
+          $ref: "#/components/schemas/BrotherhoodTypeEnum"
         banner:
           type: string
           format: base64

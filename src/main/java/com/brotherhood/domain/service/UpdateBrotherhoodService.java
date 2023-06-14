@@ -4,6 +4,7 @@ import com.brotherhood.domain.dataprovider.GetBrotherhoodById;
 import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
 import com.brotherhood.domain.dataprovider.SaveBrotherhoodDataProvider;
 import com.brotherhood.domain.dataprovider.UploadImageDataProvider;
+import com.brotherhood.domain.entity.AddressBrotherhoodEntity;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
 import com.brotherhood.model.CreateBrotherhood;
 import io.micronaut.core.util.StringUtils;
@@ -33,6 +34,16 @@ public class UpdateBrotherhoodService {
         brotherhood.setMaxOccupation(createBrotherhood.capacity());
         brotherhood.setDescription(createBrotherhood.description());
         brotherhood.setCharacteristics(createBrotherhood.characteristics());
+        brotherhood.setType(createBrotherhood.getType());
+
+        AddressBrotherhoodEntity address = brotherhood.getAddress();
+        address.setCountry(createBrotherhood.address().country());
+        address.setCity(createBrotherhood.address().getCity());
+        address.setStreet(createBrotherhood.address().getStreet());
+        address.setNumber(createBrotherhood.address().getNumber());
+        address.setZipCode(createBrotherhood.address().getZipCode());
+        address.setState(createBrotherhood.address().getState());
+
         setLogo(createBrotherhood, brotherhood);
         setBanner(createBrotherhood, brotherhood);
         saveBrotherhoodDataProvider.save(brotherhood);

@@ -10,6 +10,6 @@ public interface GetUserDataProvider {
     UserEntity findById(UUID id);
     UserEntity findByToken(String token);
 
-    List<UserSimpleCard> findAllSimpleCards();
+    List<UserSimpleCard> findAllSimpleCards(UUID brotherhoodId);
 
 }

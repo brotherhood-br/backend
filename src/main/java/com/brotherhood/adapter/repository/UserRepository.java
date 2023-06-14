@@ -1,6 +1,7 @@
 package com.brotherhood.adapter.repository;
 
 
+import com.brotherhood.domain.dataprovider.GetOccupationByBrotherhoodDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserDataProvider;
 import com.brotherhood.domain.dataprovider.SaveUserDataProvider;
 import com.brotherhood.domain.entity.UserEntity;
@@ -12,11 +13,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Singleton
-public class UserRepository implements SaveUserDataProvider, GetUserDataProvider {
+public class UserRepository implements SaveUserDataProvider, GetUserDataProvider, GetOccupationByBrotherhoodDataProvider {
     @PersistenceContext
     private Session entityManager;
 
@@ -45,5 +45,13 @@ public class UserRepository implements SaveUserDataProvider, GetUserDataProvider
         TypedQuery<UserEntity> query = entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.googleId = :token", UserEntity.class);
         query.setParameter("token", token);
         return query.getSingleResult();
+    }
+
+    @Override
+    @Transactional
+    public Integer getOccupation(UUID brotherhoodId) {
+        TypedQuery<Long> query = entityManager.createQuery("SELECT count(u) FROM UserEntity u WHERE u.brotherhood.id = :id", Long.class);
+        query.setParameter("id", brotherhoodId);
+        return query.getSingleResult().intValue();
     }
 }

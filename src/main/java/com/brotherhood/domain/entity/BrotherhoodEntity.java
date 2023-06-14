@@ -40,4 +40,8 @@ public class BrotherhoodEntity implements Serializable {
     @Column(name="characteristic")
     private List<String> characteristics;
 
+    @OneToMany
+    @JoinColumn(name="fk_brotherhood", referencedColumnName = "id")
+    private List<BrotherhoodViewsEntity> views;
+
 }

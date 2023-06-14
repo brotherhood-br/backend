@@ -2,6 +2,7 @@ package com.brotherhood.controller;
 
 import com.brotherhood.api.BrotherhoodApi;
 import com.brotherhood.domain.service.CreateBrotherhoodService;
+import com.brotherhood.domain.service.GetBrotherhoodAdminPageService;
 import com.brotherhood.domain.service.UpdateBrotherhoodService;
 import com.brotherhood.model.Brotherhood;
 import com.brotherhood.model.BrotherhoodAdminPage;
@@ -23,6 +24,9 @@ public class BrotherhoodController implements BrotherhoodApi {
     @Inject
     private UpdateBrotherhoodService updateBrotherhoodService;
 
+    @Inject
+    private GetBrotherhoodAdminPageService getBrotherhoodAdminPageService;
+
     @SneakyThrows
     @Override
     public HttpResponse<Object> createBrotherHood(String ssoToken, CreateBrotherhoodWithAdmin createBrotherhood) {
@@ -32,7 +36,7 @@ public class BrotherhoodController implements BrotherhoodApi {
 
     @Override
     public HttpResponse<BrotherhoodAdminPage> getBrotherhoodAdminPage(String ssoToken) {
-        return null;
+        return HttpResponse.ok(getBrotherhoodAdminPageService.getBrotherhoodAdminPage(ssoToken));
     }
 
     @Override

@@ -40,6 +40,7 @@ public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvi
         return query.getSingleResult();
     }
     @Override
+    @Transactional
     public List<TaskEntity> getTasksByBrotherhoodId(UUID brotherhoodId) {
         TypedQuery<TaskEntity> query = entityManager.createQuery("SELECT t FROM TaskEntity t WHERE t.brotherhood.id = :id", TaskEntity.class);
         query.setParameter("id", brotherhoodId);

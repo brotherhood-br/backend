@@ -581,10 +581,12 @@ components:
       properties:
         viewCount:
           type: integer
-        brotherhoodPageUrl:
+        brotherhoodId:
           type: string
-        brotherhoodInviteUrl:
+          format: uuid
+        brotherhoodInviteToken:
           type: string
+          format: uuid
         occupation:
           type: integer
         capacity:

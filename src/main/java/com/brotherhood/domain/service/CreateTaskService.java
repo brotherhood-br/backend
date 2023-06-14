@@ -1,14 +1,11 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.domain.dataprovider.*;
-import com.brotherhood.domain.entity.BrotherhoodEntity;
+import com.brotherhood.domain.dataprovider.GetUserDataProvider;
+import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
+import com.brotherhood.domain.dataprovider.SaveTaskDataProvider;
 import com.brotherhood.domain.entity.TaskEntity;
 import com.brotherhood.domain.entity.UserEntity;
-import com.brotherhood.domain.entity.UserTypeEntity;
-import com.brotherhood.domain.model.UserSSO;
 import com.brotherhood.model.CreateTask;
-import com.brotherhood.model.CreateUser;
-import com.brotherhood.model.UpdateTask;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

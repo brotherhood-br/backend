@@ -14,6 +14,10 @@ netty:
   default:
     allocator:
       max-order: 3
+jackson:
+  dateFormat: yyyy-MM-dd
+  serialization:
+    writeDatesAsTimestamps: false
 google:
   clientId: '43960775230-1o1aqgh85sn56nr1ai1kjktp62gf9ihc.apps.googleusercontent.com'
 datasources:

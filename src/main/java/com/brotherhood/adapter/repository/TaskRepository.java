@@ -1,14 +1,12 @@
 package com.brotherhood.adapter.repository;
 
 
-import com.brotherhood.domain.dataprovider.*;
+import com.brotherhood.domain.dataprovider.DeleteTaskDataProvider;
+import com.brotherhood.domain.dataprovider.GetTaskDataProvider;
+import com.brotherhood.domain.dataprovider.GetTasksByBrotherhoodId;
+import com.brotherhood.domain.dataprovider.SaveTaskDataProvider;
 import com.brotherhood.domain.entity.TaskEntity;
-import com.brotherhood.domain.entity.UserEntity;
-import com.brotherhood.domain.model.UserSimpleCard;
-import com.brotherhood.model.Task;
 import org.hibernate.Session;
-import org.hibernate.boot.model.source.spi.TableSource;
-import org.hibernate.query.Query;
 
 import javax.inject.Singleton;
 import javax.persistence.PersistenceContext;
@@ -18,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
-public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvider, GetTaskDataProvider{
+public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvider, GetTaskDataProvider, GetTasksByBrotherhoodId {
     @PersistenceContext
     private Session entityManager;
 
@@ -41,6 +39,10 @@ public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvi
         query.setParameter("id", id);
         return query.getSingleResult();
     }
-
-
+    @Override
+    public List<TaskEntity> getTasksByBrotherhoodId(UUID brotherhoodId) {
+        TypedQuery<TaskEntity> query = entityManager.createQuery("SELECT t FROM TaskEntity t WHERE t.brotherhood.id = :id", TaskEntity.class);
+        query.setParameter("id", brotherhoodId);
+        return query.getResultList();
+    }
 }

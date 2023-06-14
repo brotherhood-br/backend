@@ -1,15 +1,10 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.domain.dataprovider.GetBrotherhoodByInviteTokenDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
 import com.brotherhood.domain.dataprovider.SaveUserDataProvider;
-import com.brotherhood.domain.entity.BrotherhoodEntity;
 import com.brotherhood.domain.entity.UserEntity;
-import com.brotherhood.domain.entity.UserTypeEntity;
-import com.brotherhood.domain.model.UserSSO;
 import com.brotherhood.exception.BadRequestException;
-import com.brotherhood.model.CreateUser;
 import com.brotherhood.model.UpdateUser;
 
 import javax.inject.Inject;

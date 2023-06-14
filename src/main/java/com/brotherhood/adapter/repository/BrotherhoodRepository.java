@@ -1,6 +1,6 @@
 package com.brotherhood.adapter.repository;
 
-import com.brotherhood.domain.dataprovider.GetBrotherhoodById;
+import com.brotherhood.domain.dataprovider.GetBrotherhoodByIdDataProvider;
 import com.brotherhood.domain.dataprovider.GetBrotherhoodByInviteTokenDataProvider;
 import com.brotherhood.domain.dataprovider.SaveBrotherhoodDataProvider;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
@@ -15,7 +15,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.UUID;
 
 @Singleton
-public class BrotherhoodRepository implements SaveBrotherhoodDataProvider, GetBrotherhoodByInviteTokenDataProvider, GetBrotherhoodById {
+public class BrotherhoodRepository implements SaveBrotherhoodDataProvider, GetBrotherhoodByInviteTokenDataProvider, GetBrotherhoodByIdDataProvider {
 
     @PersistenceContext
     private Session entityManager;

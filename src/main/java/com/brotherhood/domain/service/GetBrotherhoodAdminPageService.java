@@ -18,7 +18,7 @@ public class GetBrotherhoodAdminPageService {
     private GetUserDataProvider getUserDataProvider;
 
     @Inject
-    private GetBrotherhoodById getBrotherhoodById;
+    private GetBrotherhoodByIdDataProvider getBrotherhoodById;
 
     @Inject
     private GetOccupationByBrotherhoodDataProvider getOccupationByBrotherhoodDataProvider;

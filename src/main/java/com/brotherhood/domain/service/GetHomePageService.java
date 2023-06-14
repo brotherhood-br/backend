@@ -1,7 +1,7 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.domain.dataprovider.GetBrotherhoodById;
-import com.brotherhood.domain.dataprovider.GetTasksByBrotherhoodId;
+import com.brotherhood.domain.dataprovider.GetBrotherhoodByIdDataProvider;
+import com.brotherhood.domain.dataprovider.GetTasksByBrotherhoodIdDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
@@ -25,10 +25,10 @@ public class GetHomePageService {
     private GetUserDataProvider getUserDataProvider;
 
     @Inject
-    private GetBrotherhoodById getBrotherhoodById;
+    private GetBrotherhoodByIdDataProvider getBrotherhoodById;
 
     @Inject
-    private GetTasksByBrotherhoodId getTasksByBrotherhoodId;
+    private GetTasksByBrotherhoodIdDataProvider getTasksByBrotherhoodId;
 
     @Transactional
     public HomePage getHomePage(String ssoToken) {

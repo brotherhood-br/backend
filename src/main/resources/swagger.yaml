@@ -96,6 +96,13 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: tracking
+          in: query
+          description: If set to true increment views of brotherhood
+          required: true
+          schema:
+            type: boolean
+            default: false
       responses:
         '200':
           description: successful operation

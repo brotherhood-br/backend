@@ -1,6 +1,6 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.domain.dataprovider.GetBrotherhoodById;
+import com.brotherhood.domain.dataprovider.GetBrotherhoodByIdDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
 import com.brotherhood.domain.dataprovider.SaveBrotherhoodDataProvider;
 import com.brotherhood.domain.dataprovider.UploadImageDataProvider;
@@ -22,7 +22,7 @@ public class UpdateBrotherhoodService {
     private UploadImageDataProvider uploadImageDataProvider;
 
     @Inject
-    private GetBrotherhoodById getBrotherhoodById;
+    private GetBrotherhoodByIdDataProvider getBrotherhoodById;
     @Inject
     private GetUserInfoFromGoogleDataProvider getUserInfoFromGoogleDataProvider;
 

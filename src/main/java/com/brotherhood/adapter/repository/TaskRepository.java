@@ -3,7 +3,7 @@ package com.brotherhood.adapter.repository;
 
 import com.brotherhood.domain.dataprovider.DeleteTaskDataProvider;
 import com.brotherhood.domain.dataprovider.GetTaskDataProvider;
-import com.brotherhood.domain.dataprovider.GetTasksByBrotherhoodId;
+import com.brotherhood.domain.dataprovider.GetTasksByBrotherhoodIdDataProvider;
 import com.brotherhood.domain.dataprovider.SaveTaskDataProvider;
 import com.brotherhood.domain.entity.TaskEntity;
 import org.hibernate.Session;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
-public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvider, GetTaskDataProvider, GetTasksByBrotherhoodId {
+public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvider, GetTaskDataProvider, GetTasksByBrotherhoodIdDataProvider {
     @PersistenceContext
     private Session entityManager;
 

@@ -44,8 +44,8 @@ public class BrotherhoodController implements BrotherhoodApi {
     }
 
     @Override
-    public HttpResponse<Brotherhood> getBrotherhoodById(UUID id) {
-        return HttpResponse.ok(getBrotherhoodService.getBrotherhoodById(id));
+    public HttpResponse<Brotherhood> getBrotherhoodById(UUID id, Boolean tracking) {
+        return HttpResponse.ok(getBrotherhoodService.getBrotherhoodById(id, tracking));
     }
 
     @Override

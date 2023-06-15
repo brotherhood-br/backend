@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
-public class UserRepository implements SaveUserDataProvider, GetUserDataProvider, GetOccupationByBrotherhoodDataProvider {
+public class UserRepositoryDataProvider implements SaveUserDataProvider, GetUserDataProvider, GetOccupationByBrotherhoodDataProvider, ExistsUserByGoogleIdDataProvider {
     @PersistenceContext
     private Session entityManager;
 
@@ -33,6 +33,15 @@ public class UserRepository implements SaveUserDataProvider, GetUserDataProvider
         query.setParameter("id", id);
         return query.getSingleResult();
     }
+
+    @Override
+    @Transactional
+    public Boolean existsUserByGoogleId(String googleId) {
+        TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(u) FROM UserEntity u WHERE u.googleId = :googleId", Long.class);
+        query.setParameter("googleId", googleId);
+        return query.getSingleResult() != 0L;
+    }
+
     @Override
     @Transactional
     public List<UserSimpleCard> findAllSimpleCards(UUID brotherhoodId) {

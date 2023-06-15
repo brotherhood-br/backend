@@ -42,4 +42,23 @@ public class UpdateTaskService {
         }
         saveTaskDataProvider.saveOrUpdate(task);
     }
+
+    public void patchTask(String ssoToken, UUID id, boolean unbindUser, UpdateTask updateTask) {
+        ssoUserDataProvider.getUserInfo(ssoToken);
+        TaskEntity task = getTaskDataProvider.findById(id);
+        if (updateTask.status() == null && updateTask.attachedUserId() == null && unbindUser == false) {
+            throw new BadRequestException("Nothing to update");
+        }
+        if (updateTask.status() != null) {
+            task.setStatus(updateTask.getStatus());
+        }
+        if (updateTask.attachedUserId() != null) {
+            task.setUser(getUserDataProvider.findById(updateTask.getAttachedUserId()));
+        }
+        if (unbindUser) {
+            task.setUser(null);
+        }
+        saveTaskDataProvider.saveOrUpdate(task);
+    }
+
 }

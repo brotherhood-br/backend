@@ -313,6 +313,13 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: unbindUser
+          in: query
+          description: Set to true if you want to set none to attached user of a task
+          required: true
+          schema:
+            default: false
+            type: boolean
       requestBody:
         description: Update an existing task
         content:

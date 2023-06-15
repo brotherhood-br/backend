@@ -46,8 +46,9 @@ public class TaskController implements TasksApi {
     }
 
     @Override
-    public HttpResponse<Object> patchTask(String ssoToken, UUID id, UpdateTask updateTask) {
-        return null;
+    public HttpResponse<Object> patchTask(String ssoToken, UUID id, Boolean unbindUser, UpdateTask updateTask) {
+        updateTaskService.patchTask(ssoToken, id, unbindUser, updateTask);
+        return HttpResponse.noContent();
     }
 
     @Override

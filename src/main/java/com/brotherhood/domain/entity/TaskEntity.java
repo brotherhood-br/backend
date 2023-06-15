@@ -29,7 +29,6 @@ public class TaskEntity implements Serializable {
 
     private LocalDateTime expiresOn;
 
-    @Column(columnDefinition = "int default 0")
     private TaskStatusEnum status;
 
     private TaskFrequencyEnum frequency;

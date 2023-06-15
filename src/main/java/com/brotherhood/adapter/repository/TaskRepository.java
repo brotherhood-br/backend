@@ -1,11 +1,9 @@
 package com.brotherhood.adapter.repository;
 
 
-import com.brotherhood.domain.dataprovider.DeleteTaskDataProvider;
-import com.brotherhood.domain.dataprovider.GetTaskDataProvider;
-import com.brotherhood.domain.dataprovider.GetTasksByBrotherhoodIdDataProvider;
-import com.brotherhood.domain.dataprovider.SaveTaskDataProvider;
+import com.brotherhood.domain.dataprovider.*;
 import com.brotherhood.domain.entity.TaskEntity;
+import com.brotherhood.domain.model.TaskCounterByStatus;
 import org.hibernate.Session;
 
 import javax.inject.Singleton;
@@ -16,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
-public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvider, GetTaskDataProvider, GetTasksByBrotherhoodIdDataProvider {
+public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvider, GetTaskDataProvider, GetTasksByBrotherhoodIdDataProvider, GetTaskCounterDataProvider {
     @PersistenceContext
     private Session entityManager;
 
@@ -43,6 +41,14 @@ public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvi
     @Transactional
     public List<TaskEntity> getTasksByBrotherhoodId(UUID brotherhoodId) {
         TypedQuery<TaskEntity> query = entityManager.createQuery("SELECT t FROM TaskEntity t WHERE t.brotherhood.id = :id", TaskEntity.class);
+        query.setParameter("id", brotherhoodId);
+        return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<TaskCounterByStatus> getTaskCounterByBrotherhood(UUID brotherhoodId) {
+        TypedQuery<TaskCounterByStatus> query = entityManager.createQuery("SELECT new com.brotherhood.domain.model.TaskCounterByStatus(count(t), t.status) FROM TaskEntity t WHERE t.brotherhood.id = :id GROUP BY t.status", TaskCounterByStatus.class);
         query.setParameter("id", brotherhoodId);
         return query.getResultList();
     }

@@ -240,6 +240,32 @@ paths:
         '405':
           description: Invalid input
   /tasks/{id}:
+    get:
+      tags:
+        - tasks
+      summary: Retrieve all the necessary info for build the tasks page
+      operationId: getTaskById
+      parameters:
+        - name: sso_token
+          in: header
+          description: ''
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the task
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
     delete:
       tags:
         - tasks
@@ -338,13 +364,6 @@ paths:
       summary: Retrieve all the necessary info for build the tasks page
       operationId: getTaskPage
       parameters:
-        - name: taskStatus
-          in: query
-          description: 'Optional filter for status'
-          required: false
-          schema:
-            type: string
-            enum: [AVAILABLE, LATE, FINISHED]
         - name: sso_token
           in: header
           description: ''
@@ -695,10 +714,13 @@ components:
       properties:
         late:
           type: integer
+          default: 0
         available:
           type: integer
+          default: 0
         finished:
           type: integer
+          default: 0
     BudgetsPage:
       type: object
       properties:
@@ -748,17 +770,21 @@ components:
         expiresOn:
           type: string
           format: date-time
+        status:
+          $ref: "#/components/schemas/TaskStatusEnum"
         frequency:
-          format: date-time
+          $ref: "#/components/schemas/TaskFrequencyEnum"
     UpdateTask:
       type: object
       properties:
         status:
-          type: string
-          enum: [AVAILABLE, LATE, FINISHED]
+          $ref: "#/components/schemas/TaskStatusEnum"
         attachedUserId:
           type: string
           format: uuid
+    TaskStatusEnum:
+        type: string
+        enum: [AVAILABLE, LATE, FINISHED]
     CreateTask:
       type: object
       properties:
@@ -773,8 +799,10 @@ components:
           type: string
           format: uuid
         frequency:
-          type: string
-          enum: [WEEKLY, MONTHLY, NONE]
+          $ref: "#/components/schemas/TaskFrequencyEnum"
+    TaskFrequencyEnum:
+        type: string
+        enum: [WEEKLY, MONTHLY, NONE]
     UpdateUser:
       type: object
       properties:

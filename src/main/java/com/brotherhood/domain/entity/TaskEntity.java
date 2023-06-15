@@ -1,18 +1,15 @@
 package com.brotherhood.domain.entity;
 
-import com.brotherhood.model.CreateTask;
-import com.brotherhood.model.UpdateTask;
-import com.google.api.client.util.DateTime;
+import com.brotherhood.model.TaskFrequencyEnum;
+import com.brotherhood.model.TaskStatusEnum;
 import com.google.errorprone.annotations.concurrent.LazyInit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -33,9 +30,9 @@ public class TaskEntity implements Serializable {
     private LocalDateTime expiresOn;
 
     @Column(columnDefinition = "int default 0")
-    private UpdateTask.Status status;
+    private TaskStatusEnum status;
 
-    private CreateTask.Frequency frequency;
+    private TaskFrequencyEnum frequency;
 
     @ManyToOne
     @JoinColumn(name = "fk_brotherhood", referencedColumnName = "id")

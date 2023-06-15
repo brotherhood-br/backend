@@ -2,18 +2,17 @@ package com.brotherhood.controller;
 
 import com.brotherhood.api.TasksApi;
 import com.brotherhood.domain.service.CreateTaskService;
-import com.brotherhood.domain.service.CreateUserService;
 import com.brotherhood.domain.service.DeleteTaskService;
+import com.brotherhood.domain.service.GetTaskService;
 import com.brotherhood.domain.service.UpdateTaskService;
 import com.brotherhood.model.CreateTask;
+import com.brotherhood.model.Task;
 import com.brotherhood.model.TaskPage;
 import com.brotherhood.model.UpdateTask;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -28,6 +27,9 @@ public class TaskController implements TasksApi {
     @Inject
     private UpdateTaskService updateTaskService;
 
+    @Inject
+    private GetTaskService getTaskService;
+
     @Override
     public HttpResponse<Object> createTask(String ssoToken, CreateTask createTask) {
         createTaskService.createTask(ssoToken, createTask);
@@ -41,8 +43,13 @@ public class TaskController implements TasksApi {
     }
 
     @Override
-    public HttpResponse<TaskPage> getTaskPage(String ssoToken, @Nonnull Optional<String> taskStatus) {
-        return null;
+    public HttpResponse<Task> getTaskById(String ssoToken, UUID id) {
+        return HttpResponse.ok(getTaskService.getTaskById(ssoToken, id));
+    }
+
+    @Override
+    public HttpResponse<TaskPage> getTaskPage(String ssoToken) {
+        return HttpResponse.ok(getTaskService.getTaskPage(ssoToken));
     }
 
     @Override

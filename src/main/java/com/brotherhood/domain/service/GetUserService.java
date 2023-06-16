@@ -4,11 +4,13 @@ import com.brotherhood.domain.dataprovider.GetUserDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
 import com.brotherhood.domain.entity.UserEntity;
 import com.brotherhood.domain.model.UserSimpleCard;
+import com.brotherhood.model.User;
 import com.brotherhood.model.UserCard;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -26,6 +28,16 @@ public class GetUserService {
                 .stream()
                 .map(GetUserService::getUserCard)
                 .collect(Collectors.toList());
+    }
+    public User getUser(String ssoToken, UUID userId) {
+        UserEntity user = getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
+        return new User().id(userId)
+                .name(user.getName())
+                .picture(user.getPicture())
+                .birthdate(user.getBirthdate())
+                .phone(user.getPhone())
+                .email(user.getEmail())
+                .type(user.getType());
     }
 
     private static UserCard getUserCard(UserSimpleCard e) {

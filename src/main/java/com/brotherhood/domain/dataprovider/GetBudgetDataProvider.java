@@ -1,6 +1,5 @@
 package com.brotherhood.domain.dataprovider;
 
-import com.brotherhood.domain.model.BudgetCompleteCard;
 import com.brotherhood.model.Goal;
 
 import java.util.List;

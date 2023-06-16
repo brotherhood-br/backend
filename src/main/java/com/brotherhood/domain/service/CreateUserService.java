@@ -1,6 +1,6 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.adapter.repository.ExistsUserByGoogleIdDataProvider;
+import com.brotherhood.domain.dataprovider.ExistsUserByGoogleIdDataProvider;
 import com.brotherhood.domain.dataprovider.GetBrotherhoodByInviteTokenDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
 import com.brotherhood.domain.dataprovider.SaveUserDataProvider;

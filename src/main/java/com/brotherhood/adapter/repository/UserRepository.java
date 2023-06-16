@@ -1,6 +1,7 @@
 package com.brotherhood.adapter.repository;
 
 
+import com.brotherhood.domain.dataprovider.ExistsUserByGoogleIdDataProvider;
 import com.brotherhood.domain.dataprovider.GetOccupationByBrotherhoodDataProvider;
 import com.brotherhood.domain.dataprovider.GetUserDataProvider;
 import com.brotherhood.domain.dataprovider.SaveUserDataProvider;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
-public class UserRepositoryDataProvider implements SaveUserDataProvider, GetUserDataProvider, GetOccupationByBrotherhoodDataProvider, ExistsUserByGoogleIdDataProvider {
+public class UserRepository implements SaveUserDataProvider, GetUserDataProvider, GetOccupationByBrotherhoodDataProvider, ExistsUserByGoogleIdDataProvider {
     @PersistenceContext
     private Session entityManager;
 

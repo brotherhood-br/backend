@@ -1,11 +1,7 @@
 package com.brotherhood.controller;
 
 import com.brotherhood.api.BudgetsApi;
-import com.brotherhood.domain.service.ContributeToGoalService;
-import com.brotherhood.domain.service.CreateBudgetService;
-import com.brotherhood.domain.service.DeleteBudgetService;
-import com.brotherhood.domain.service.GetBudgetsService;
-import com.brotherhood.domain.service.GetGoalService;
+import com.brotherhood.domain.service.*;
 import com.brotherhood.model.BudgetsPage;
 import com.brotherhood.model.CreateGoal;
 import com.brotherhood.model.Goal;
@@ -33,6 +29,9 @@ public class BudgetController implements BudgetsApi  {
 
     @Inject
     private GetGoalService getGoalService;
+
+    @Inject
+    private UpdateBudgetService updateBudgetService;
 
     @Override
     public HttpResponse<Object> contribute(String ssoToken, UUID goalId, InlineObject value) {
@@ -64,6 +63,7 @@ public class BudgetController implements BudgetsApi  {
 
     @Override
     public HttpResponse<Object> updateGoal(String ssoToken, UUID id, CreateGoal createGoal) {
-        return null;
+        updateBudgetService.updateBudget(ssoToken, id, createGoal);
+        return HttpResponse.noContent();
     }
 }

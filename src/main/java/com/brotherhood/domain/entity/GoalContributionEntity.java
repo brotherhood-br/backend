@@ -22,8 +22,6 @@ public class GoalContributionEntity implements Serializable {
 
     private double contributedValue;
 
-    private String description;
-
     @ManyToOne
     @JoinColumn(name = "fk_contributor", referencedColumnName = "id")
     @LazyInit

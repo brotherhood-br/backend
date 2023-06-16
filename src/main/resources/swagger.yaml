@@ -560,7 +560,7 @@ paths:
         '401':
           description: Invalid token
   /budgets/goals/{id}/contributions:
-    patch:
+    post:
       tags:
         - budgets
       summary: Add a contribution for a goal

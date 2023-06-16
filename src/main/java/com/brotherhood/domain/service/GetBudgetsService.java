@@ -32,7 +32,7 @@ public class GetBudgetsService {
     public BudgetsPage getAllCompleteCards(String ssoToken) {
         UserEntity user = getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
         Double total = getTotalValueByBrotherhoodDataProvider.getTotalValueByBrotherhood(user.getBrotherhood().getId());
-        List<BudgetCompleteCard> cards = getBudgetDataProvider.findAllCompleteCards(user.getBrotherhood().getId());
+        List<BudgetCompleteCard> cards = getBudgetDataProvider.getAllCompleteCards(user.getBrotherhood().getId());
         return new BudgetsPage()
                 .totalValue(total)
                 .goals(getGoals(cards));

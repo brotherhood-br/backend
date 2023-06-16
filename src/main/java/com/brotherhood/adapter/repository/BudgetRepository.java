@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
-public class BudgetRepository implements GetBudgetDataProvider, SaveBudgetDataProvider {
+public class BudgetRepository implements GetBudgetDataProvider, SaveBudgetDataProvider, DeleteBudgetDataProvider {
     @PersistenceContext
     private Session entityManager;
 
@@ -35,5 +35,11 @@ public class BudgetRepository implements GetBudgetDataProvider, SaveBudgetDataPr
     public BudgetsGoalEntity saveOrUpdate(BudgetsGoalEntity budgetsGoal) {
         entityManager.saveOrUpdate(budgetsGoal);
         return budgetsGoal;
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(UUID id) {
+        entityManager.createNativeQuery("DELETE FROM tb_goal_contribution where fk_budgets_goal = :id ; DELETE FROM tb_budget_goal where id = :id " ).setParameter("id", id).executeUpdate();
     }
 }

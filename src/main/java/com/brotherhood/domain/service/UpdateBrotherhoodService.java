@@ -1,9 +1,6 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.domain.dataprovider.GetBrotherhoodByIdDataProvider;
-import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
-import com.brotherhood.domain.dataprovider.SaveBrotherhoodDataProvider;
-import com.brotherhood.domain.dataprovider.UploadImageDataProvider;
+import com.brotherhood.domain.dataprovider.*;
 import com.brotherhood.domain.entity.AddressBrotherhoodEntity;
 import com.brotherhood.domain.entity.BrotherhoodEntity;
 import com.brotherhood.model.CreateBrotherhood;
@@ -17,6 +14,9 @@ import java.util.UUID;
 public class UpdateBrotherhoodService {
     @Inject
     private SaveBrotherhoodDataProvider saveBrotherhoodDataProvider;
+
+    @Inject
+    private SaveAddressDataProvider saveAddressDataProvider;
 
     @Inject
     private UploadImageDataProvider uploadImageDataProvider;
@@ -47,6 +47,7 @@ public class UpdateBrotherhoodService {
         setLogo(createBrotherhood, brotherhood);
         setBanner(createBrotherhood, brotherhood);
         saveBrotherhoodDataProvider.save(brotherhood);
+        saveAddressDataProvider.save(address);
     }
 
     private void setBanner(CreateBrotherhood createBrotherhood, BrotherhoodEntity brotherhood) {

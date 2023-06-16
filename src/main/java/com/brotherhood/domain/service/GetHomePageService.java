@@ -37,7 +37,7 @@ public class GetHomePageService {
         try {
             UserEntity user = getUserDataProvider.findByToken(getUserInfoFromGoogleDataProvider.getUserInfo(ssoToken).getUserId());
             BrotherhoodEntity brotherhood = getBrotherhoodById.findById(user.getBrotherhood().getId());
-            List<TaskEntity> tasks = getTasksByBrotherhoodId.getTasksByBrotherhoodId(brotherhood.getId());
+            List<TaskEntity> tasks = getTasksByBrotherhoodId.getTasksByBrotherhoodAndUser(brotherhood.getId(), user.getId());
             return new HomePage()
                     .brotherhoodLogo(brotherhood.getLogo())
                     .brotherhoodBanner(brotherhood.getBanner())

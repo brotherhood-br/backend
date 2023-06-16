@@ -6,5 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface GetTasksByBrotherhoodIdDataProvider {
-    List<TaskEntity> getTasksByBrotherhoodId(UUID brotherhoodId);
+    List<TaskEntity> getTasksByBrotherhoodAndUser(UUID brotherhoodId);
+    List<TaskEntity> getTasksByBrotherhoodAndUser(UUID brotherhoodId, UUID userId);
 }

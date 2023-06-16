@@ -42,7 +42,7 @@ public class GetTaskService {
 
     public TaskPage getTaskPage(String ssoToken) {
         UserEntity user = getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
-        List<TaskEntity> tasksByBrotherhoodId = getTasksByBrotherhoodIdDataProvider.getTasksByBrotherhoodId(user.getBrotherhood().getId());
+        List<TaskEntity> tasksByBrotherhoodId = getTasksByBrotherhoodIdDataProvider.getTasksByBrotherhoodAndUser(user.getBrotherhood().getId());
         List<TaskCounterByStatus> counters = getTaskCounterDataProvider.getTaskCounterByBrotherhood(user.getBrotherhood().getId());
         Map<TaskStatusEnum, Integer> counterByStatus = new HashMap<>();
         counters.forEach(c -> counterByStatus.put(c.getStatus(), c.getCount().intValue()));

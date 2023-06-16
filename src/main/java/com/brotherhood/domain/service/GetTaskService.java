@@ -36,8 +36,8 @@ public class GetTaskService {
     private GetTaskDataProvider getTaskDataProvider;
 
     public Task getTaskById(String ssoToken, UUID taskId) {
-        UserEntity user = getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
-        return mapTask(getTaskDataProvider.findById(taskId), user);
+        getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
+        return mapTask(getTaskDataProvider.findById(taskId));
     }
 
     public TaskPage getTaskPage(String ssoToken) {
@@ -48,12 +48,12 @@ public class GetTaskService {
         counters.forEach(c -> counterByStatus.put(c.getStatus(), c.getCount().intValue()));
         return new TaskPage()
                 .counterCarousel(getTaskCounterCard(counterByStatus))
-                .tasks(getTasks(user, tasksByBrotherhoodId));
+                .tasks(getTasks(tasksByBrotherhoodId));
     }
 
-    private List<Task> getTasks(UserEntity user, List<TaskEntity> tasksByBrotherhoodId) {
+    private List<Task> getTasks(List<TaskEntity> tasksByBrotherhoodId) {
         return tasksByBrotherhoodId.stream()
-                .map(task -> mapTask(task, user))
+                .map(this::mapTask)
                 .collect(Collectors.toList());
     }
 
@@ -64,12 +64,13 @@ public class GetTaskService {
                 .finished(counterByStatus.get(TaskStatusEnum.FINISHED) == null ? 0 : counterByStatus.get(TaskStatusEnum.FINISHED));
     }
 
-    public Task mapTask(TaskEntity entity, UserEntity user) {
+    public Task mapTask(TaskEntity entity) {
+        UserEntity attachedUser = getUserDataProvider.findById(entity.getUser().getId());
         return new Task()
                 .id(entity.getId())
                 .title(entity.getTitle())
-                .responsibleName(user.getName())
-                .responsibleImg(user.getPicture())
+                .responsibleName(attachedUser.getName())
+                .responsibleImg(attachedUser.getPicture())
                 .description(entity.getDescription())
                 .expiresOn(entity.getExpiresOn())
                 .status(entity.getStatus())

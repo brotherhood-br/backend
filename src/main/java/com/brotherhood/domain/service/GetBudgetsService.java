@@ -1,17 +1,17 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.domain.dataprovider.*;
-import com.brotherhood.domain.entity.*;
+import com.brotherhood.domain.dataprovider.GetBudgetDataProvider;
+import com.brotherhood.domain.dataprovider.GetTotalValueByBrotherhoodDataProvider;
+import com.brotherhood.domain.dataprovider.GetUserDataProvider;
+import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
+import com.brotherhood.domain.entity.UserEntity;
 import com.brotherhood.domain.model.BudgetCompleteCard;
-import com.brotherhood.model.Address;
-import com.brotherhood.model.Brotherhood;
 import com.brotherhood.model.BudgetsPage;
 import com.brotherhood.model.Goal;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.time.LocalDate;
-import java.util.UUID;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -21,6 +21,9 @@ public class GetBudgetsService {
     private GetBudgetDataProvider getBudgetDataProvider;
 
     @Inject
+    private GetTotalValueByBrotherhoodDataProvider getTotalValueByBrotherhoodDataProvider;
+
+    @Inject
     private GetUserInfoFromGoogleDataProvider ssoUserDataProvider;
 
     @Inject
@@ -28,8 +31,23 @@ public class GetBudgetsService {
 
     public BudgetsPage getAllCompleteCards(String ssoToken) {
         UserEntity user = getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
-        return new BudgetsPage().goals(getBudgetDataProvider.findAllCompleteCards(user.getBrotherhood().getId()));
+        Double total = getTotalValueByBrotherhoodDataProvider.getTotalValueByBrotherhood(user.getBrotherhood().getId());
+        List<BudgetCompleteCard> cards = getBudgetDataProvider.findAllCompleteCards(user.getBrotherhood().getId());
+        return new BudgetsPage()
+                .totalValue(total)
+                .goals(getGoals(cards));
     }
 
+    private List<Goal> getGoals(List<BudgetCompleteCard> cards) {
+        return cards.stream().map(this::getGoal).collect(Collectors.toList());
+    }
+
+    private Goal getGoal(BudgetCompleteCard budgetCompleteCard) {
+        return new Goal().id(budgetCompleteCard.getId())
+                .title(budgetCompleteCard.getTitle())
+                .description(budgetCompleteCard.getDescription())
+                .currentValue(budgetCompleteCard.getCurrentValue())
+                .targetValue(budgetCompleteCard.getTargetValue());
+    }
 
 }

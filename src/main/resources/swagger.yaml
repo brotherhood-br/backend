@@ -572,6 +572,8 @@ components:
     HomePage:
       type: object
       properties:
+        brotherhoodName:
+            type: string
         brotherhoodLogo:
           type: string
         brotherhoodBanner:
@@ -581,13 +583,17 @@ components:
           format: uuid
         userName:
           type: string
-        userType:
+        userPicture:
           type: string
-          enum: [ADMIN, RESIDENT]
+        userType:
+          $ref: "#/components/schemas/UserTypeEnum"
         tasks:
           type: array
           items:
             $ref: '#/components/schemas/TaskHome'
+    UserTypeEnum:
+        type: string
+        enum: [ ADMIN, RESIDENT ]
     TaskHome:
       type: object
       properties:
@@ -609,6 +615,8 @@ components:
           type: string
         image:
           type: string
+        type:
+          $ref: "#/components/schemas/UserTypeEnum"
     BrotherhoodAdminPage:
       type: object
       properties:

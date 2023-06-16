@@ -32,6 +32,7 @@ public class GetUserService {
         return new UserCard()
                 .id(e.getId())
                 .name(e.getName())
-                .image(e.getImage());
+                .image(e.getImage())
+                .type(e.getType());
     }
 }

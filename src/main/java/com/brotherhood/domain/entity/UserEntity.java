@@ -1,6 +1,6 @@
 package com.brotherhood.domain.entity;
 
-import com.brotherhood.model.HomePage;
+import com.brotherhood.model.UserTypeEnum;
 import com.google.errorprone.annotations.concurrent.LazyInit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +36,7 @@ public class UserEntity implements Serializable {
     @Column(name = "email", unique = true)
     private String email;
 
-    private HomePage.UserType type;
+    private UserTypeEnum type;
 
     @ManyToOne
     @JoinColumn(name="fk_brotherhood", referencedColumnName = "id")

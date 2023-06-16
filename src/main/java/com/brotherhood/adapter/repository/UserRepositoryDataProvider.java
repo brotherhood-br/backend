@@ -45,7 +45,7 @@ public class UserRepositoryDataProvider implements SaveUserDataProvider, GetUser
     @Override
     @Transactional
     public List<UserSimpleCard> findAllSimpleCards(UUID brotherhoodId) {
-        TypedQuery<UserSimpleCard> query = entityManager.createQuery("SELECT new com.brotherhood.domain.model.UserSimpleCard(u.id, u.name, u.picture) FROM UserEntity u WHERE u.brotherhood.id = :id", UserSimpleCard.class);
+        TypedQuery<UserSimpleCard> query = entityManager.createQuery("SELECT new com.brotherhood.domain.model.UserSimpleCard(u.id, u.name, u.picture, u.type) FROM UserEntity u WHERE u.brotherhood.id = :id", UserSimpleCard.class);
         query.setParameter("id", brotherhoodId);
         return query.getResultList();
     }

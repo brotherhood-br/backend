@@ -9,7 +9,7 @@ import com.brotherhood.domain.entity.UserEntity;
 import com.brotherhood.domain.model.UserSSO;
 import com.brotherhood.exception.BadRequestException;
 import com.brotherhood.model.CreateUser;
-import com.brotherhood.model.HomePage;
+import com.brotherhood.model.UserTypeEnum;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -33,14 +33,14 @@ public class CreateUserService {
         UserEntity user = getUserEntity(ssoToken, createUser);
         BrotherhoodEntity brotherhood = getBrotherhoodByInviteTokenDataProvider.findByInviteToken(createUser.brotherhoodToken());
         user.setBrotherhood(brotherhood);
-        user.setType(HomePage.UserType.RESIDENT);
+        user.setType(UserTypeEnum.RESIDENT);
         saveUserDataProvider.saveOrUpdate(user);
     }
 
     public void createAdminUser(String ssoToken, CreateUser createUser, BrotherhoodEntity brotherhood) {
         UserEntity user = getUserEntity(ssoToken, createUser);
         user.setBrotherhood(brotherhood);
-        user.setType(HomePage.UserType.ADMIN);
+        user.setType(UserTypeEnum.ADMIN);
         saveUserDataProvider.saveOrUpdate(user);
     }
 

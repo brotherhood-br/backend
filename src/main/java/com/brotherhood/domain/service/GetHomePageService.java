@@ -41,9 +41,11 @@ public class GetHomePageService {
             return new HomePage()
                     .brotherhoodLogo(brotherhood.getLogo())
                     .brotherhoodBanner(brotherhood.getBanner())
+                    .brotherhoodName(brotherhood.getName())
                     .userId(user.getId())
                     .userName(user.getName())
                     .userType(user.getType())
+                    .userPicture(user.getPicture())
                     .tasks(getTasks(tasks));
         } catch (NoResultException ex) {
             throw new InvalidUserTokenException("User has no brotherhood attached!");

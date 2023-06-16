@@ -1,28 +1,26 @@
 package com.brotherhood.controller;
 
 import com.brotherhood.api.BudgetsApi;
+import com.brotherhood.domain.service.CreateBudgetService;
 import com.brotherhood.domain.service.GetBudgetsService;
-import com.brotherhood.domain.service.UpdateTaskService;
 import com.brotherhood.model.BudgetsPage;
 import com.brotherhood.model.CreateGoal;
 import com.brotherhood.model.Goal;
 import com.brotherhood.model.InlineObject;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
-import lombok.Data;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import java.util.Optional;
 import java.util.UUID;
-
-
 
 @Controller
 public class BudgetController implements BudgetsApi  {
 
     @Inject
     private GetBudgetsService getBudgetsService;
+
+    @Inject
+    private CreateBudgetService createBudgetService;
 
     @Override
     public HttpResponse<Object> contribute(String ssoToken, UUID id, InlineObject inlineObject) {
@@ -31,7 +29,8 @@ public class BudgetController implements BudgetsApi  {
 
     @Override
     public HttpResponse<Object> createGoal(String ssoToken, CreateGoal createGoal) {
-        return null;
+        createBudgetService.create(ssoToken, createGoal);
+        return HttpResponse.noContent();
     }
 
     @Override
@@ -41,8 +40,7 @@ public class BudgetController implements BudgetsApi  {
 
     @Override
     public HttpResponse<BudgetsPage> getBudgetsPage(String ssoToken) {
-        getBudgetsService.getAllCompleteCards(ssoToken);
-        return HttpResponse.noContent();
+        return HttpResponse.ok(getBudgetsService.getAllCompleteCards(ssoToken));
     }
 
     @Override

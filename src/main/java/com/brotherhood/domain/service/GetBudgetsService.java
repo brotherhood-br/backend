@@ -27,7 +27,6 @@ public class GetBudgetsService {
     private GetUserDataProvider getUserDataProvider;
 
     public BudgetsPage getAllCompleteCards(String ssoToken) {
-
         UserEntity user = getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
         return new BudgetsPage().goals(getBudgetDataProvider.findAllCompleteCards(user.getBrotherhood().getId()));
     }

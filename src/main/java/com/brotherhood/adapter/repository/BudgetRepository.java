@@ -1,11 +1,12 @@
 package com.brotherhood.adapter.repository;
 
 
-import com.brotherhood.domain.dataprovider.*;
+import com.brotherhood.domain.dataprovider.DeleteBudgetDataProvider;
+import com.brotherhood.domain.dataprovider.GetBudgetDataProvider;
+import com.brotherhood.domain.dataprovider.GetTotalValueByBrotherhoodDataProvider;
+import com.brotherhood.domain.dataprovider.SaveBudgetDataProvider;
 import com.brotherhood.domain.entity.BudgetsGoalEntity;
-import com.brotherhood.domain.entity.TaskEntity;
 import com.brotherhood.domain.model.BudgetCompleteCard;
-import com.brotherhood.model.Goal;
 import org.hibernate.Session;
 
 import javax.inject.Singleton;
@@ -16,18 +17,28 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
-public class BudgetRepository implements GetBudgetDataProvider, SaveBudgetDataProvider, DeleteBudgetDataProvider {
+public class BudgetRepository implements GetBudgetDataProvider, SaveBudgetDataProvider, GetTotalValueByBrotherhoodDataProvider, DeleteBudgetDataProvider {
     @PersistenceContext
     private Session entityManager;
 
     @Override
     @Transactional
-    public List<Goal> findAllCompleteCards(UUID budgetId) {
-        TypedQuery<Goal> query = entityManager.createQuery("SELECT new com.brotherhood.domain.model.Goal(b.id, b.title, b.description, b.targetValue, sum(g.contributedValue)) " +
-                                                              "FROM BudgetsGoalEntity b inner join GoalContributionEntity g on g.budgetsGoal.id = b.id " +
-                                                              "WHERE g.brotherhood.id = :id group by b.id, b.title, b.description, b.targetValue", Goal.class);
-        query.setParameter("id", budgetId);
+    public List<BudgetCompleteCard> findAllCompleteCards(UUID brotherhoodId) {
+        String queryString = "SELECT new com.brotherhood.domain.model.BudgetCompleteCard(goal.id, goal.title, goal.description, goal.targetValue, COALESCE(SUM(contribution.contributedValue), 0)) FROM BudgetsGoalEntity goal " +
+                " LEFT JOIN GoalContributionEntity contribution ON contribution.budgetsGoal.id = goal.id " +
+                " WHERE goal.brotherhood.id = :brotherhoodId" +
+                " GROUP BY goal.id, goal.title, goal.description, goal.targetValue";
+        TypedQuery<BudgetCompleteCard> query = entityManager.createQuery(queryString, BudgetCompleteCard.class);
+        query.setParameter("brotherhoodId", brotherhoodId);
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public Double getTotalValueByBrotherhood(UUID brotherhoodId) {
+        TypedQuery<Double> query = entityManager.createQuery("SELECT COALESCE(SUM(c.contributedValue), 0) FROM GoalContributionEntity c WHERE c.budgetsGoal.id = :brotherhoodId", Double.class);
+        query.setParameter("brotherhoodId", brotherhoodId);
+        return query.getSingleResult();
     }
 
     @Override

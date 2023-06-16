@@ -6,6 +6,7 @@ import com.brotherhood.domain.dataprovider.SaveTaskDataProvider;
 import com.brotherhood.domain.entity.TaskEntity;
 import com.brotherhood.domain.entity.UserEntity;
 import com.brotherhood.model.CreateTask;
+import com.brotherhood.model.TaskStatusEnum;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -29,24 +30,18 @@ public class CreateTaskService {
 
     private TaskEntity getTaskEntity(String ssoToken, CreateTask createTask) {
         UserEntity user = getUserDataProvider.findByToken(ssoUserDataProvider.getUserInfo(ssoToken).getUserId());
-        if (createTask.attachedUserId() != null) {
-            return TaskEntity.builder()
-                    .id(UUID.randomUUID())
-                    .title(createTask.title())
-                    .description(createTask.description())
-                    .expiresOn(createTask.expiresOn())
-                    .frequency(createTask.frequency())
-                    .user(getUserDataProvider.findById(createTask.getAttachedUserId()))
-                    .brotherhood(user.getBrotherhood())
-                    .build();
-        }
-        return TaskEntity.builder()
+        TaskEntity task = TaskEntity.builder()
                 .id(UUID.randomUUID())
                 .title(createTask.title())
                 .description(createTask.description())
                 .expiresOn(createTask.expiresOn())
                 .frequency(createTask.frequency())
+                .status(TaskStatusEnum.AVAILABLE)
                 .brotherhood(user.getBrotherhood())
                 .build();
+        if (createTask.attachedUserId() != null) {
+            task.setUser(getUserDataProvider.findById(createTask.getAttachedUserId()));
+        }
+        return task;
     }
 }

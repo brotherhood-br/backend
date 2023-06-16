@@ -1,12 +1,13 @@
 package com.brotherhood.domain.service;
 
-import com.brotherhood.domain.dataprovider.*;
+import com.brotherhood.domain.dataprovider.GetTaskDataProvider;
+import com.brotherhood.domain.dataprovider.GetUserDataProvider;
+import com.brotherhood.domain.dataprovider.GetUserInfoFromGoogleDataProvider;
+import com.brotherhood.domain.dataprovider.SaveTaskDataProvider;
 import com.brotherhood.domain.entity.TaskEntity;
-import com.brotherhood.domain.entity.UserEntity;
 import com.brotherhood.exception.BadRequestException;
 import com.brotherhood.model.CreateTask;
 import com.brotherhood.model.UpdateTask;
-import com.brotherhood.model.UpdateUser;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -42,4 +43,23 @@ public class UpdateTaskService {
         }
         saveTaskDataProvider.saveOrUpdate(task);
     }
+
+    public void patchTask(String ssoToken, UUID id, boolean unbindUser, UpdateTask updateTask) {
+        ssoUserDataProvider.getUserInfo(ssoToken);
+        TaskEntity task = getTaskDataProvider.findById(id);
+        if (updateTask.status() == null && updateTask.attachedUserId() == null && !unbindUser) {
+            throw new BadRequestException("Nothing to update");
+        }
+        if (updateTask.status() != null) {
+            task.setStatus(updateTask.getStatus());
+        }
+        if (updateTask.attachedUserId() != null) {
+            task.setUser(getUserDataProvider.findById(updateTask.getAttachedUserId()));
+        }
+        if (unbindUser) {
+            task.setUser(null);
+        }
+        saveTaskDataProvider.saveOrUpdate(task);
+    }
+
 }

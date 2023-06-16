@@ -623,6 +623,9 @@ components:
           type: string
         brotherhoodBanner:
           type: string
+        brotherhoodId:
+          type: string
+          format: uuid
         userId:
           type: string
           format: uuid

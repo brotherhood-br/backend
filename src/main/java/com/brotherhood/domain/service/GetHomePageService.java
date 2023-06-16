@@ -39,6 +39,7 @@ public class GetHomePageService {
             BrotherhoodEntity brotherhood = getBrotherhoodById.findById(user.getBrotherhood().getId());
             List<TaskEntity> tasks = getTasksByBrotherhoodId.getTasksByBrotherhoodAndUser(brotherhood.getId(), user.getId());
             return new HomePage()
+                    .brotherhoodId(brotherhood.getId())
                     .brotherhoodLogo(brotherhood.getLogo())
                     .brotherhoodBanner(brotherhood.getBanner())
                     .brotherhoodName(brotherhood.getName())

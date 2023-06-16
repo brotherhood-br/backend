@@ -7,7 +7,7 @@ micronaut:
           allowed-origins:
             - http://localhost:3000
             - https://localhost:3000
-            - https://brotherhood-br.vercel.com
+            - https://brotherhood-br.vercel.app
   application:
     name: brotherhood
 netty:

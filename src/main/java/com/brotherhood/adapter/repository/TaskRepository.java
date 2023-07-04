@@ -24,7 +24,6 @@ public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvi
         entityManager.saveOrUpdate(task);
         return task;
     }
-
     @Override
     @Transactional
     public void deleteById(UUID id) {
@@ -45,9 +44,10 @@ public class TaskRepository implements SaveTaskDataProvider, DeleteTaskDataProvi
         return query.getResultList();
     }
 
-    @Override
+
+
     public List<TaskEntity> getTasksByBrotherhoodAndUser(UUID brotherhoodId, UUID userId) {
-        TypedQuery<TaskEntity> query = entityManager.createQuery("SELECT t FROM TaskEntity t WHERE t.brotherhood.id = :brotherhoodId AND t.user.id = :userId", TaskEntity.class);
+        TypedQuery<TaskEntity> query = entityManager.createQuery("SELECT t FROM TaskEntity t WHERE t.brotherhood.id = :brotherhoodId AND t.user.id = :userId AND t.status != com.brotherhood.model.TaskStatusEnum.FINISHED ", TaskEntity.class);
         query.setParameter("brotherhoodId", brotherhoodId);
         query.setParameter("userId", userId);
         return query.getResultList();

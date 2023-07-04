@@ -817,6 +817,9 @@ components:
           format: uuid
         title:
           type: string
+        attachedUserId:
+          type: string
+          format: uuid
         responsibleName:
           type: string
         responsibleImg:

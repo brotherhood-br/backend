@@ -69,6 +69,7 @@ public class GetTaskService {
         return new Task()
                 .id(entity.getId())
                 .title(entity.getTitle())
+                .attachedUserId(attachedUser.getId())
                 .responsibleName(attachedUser.getName())
                 .responsibleImg(attachedUser.getPicture())
                 .description(entity.getDescription())
